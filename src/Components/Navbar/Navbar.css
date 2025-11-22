@@ -1,122 +1,248 @@
-/* Theme: Kalki Financial Solutions — Blue / Navy / Charcoal */
-:root {
+/* Theme: Kalki Financial Solutions — Blue / Navy / Charcoal
+   Purpose: Clean, white navbar surface, scrolled state, accessible focus states,
+   wordmark, desktop underline, mobile drawer surface.
+*/
+
+/* Color tokens */
+:root{
   --wp-bg-top: #ffffff;
-  --wp-bg-scrolled: rgba(255, 255, 255, 0.96);
+  --wp-bg-scrolled: rgba(255,255,255,0.98);
 
   /* Primary colors based on logo */
   --wp-text: #002B55;        /* Deep navy */
   --wp-muted: #333333;       /* Charcoal grey */
-  --wp-accent: #1976D2;      /* Primary blue */
+  --wp-accent: #1976D2;      /* Primary bright blue */
   --wp-accent-600: #0F56A4;  /* Slightly darker blue */
 
-  --wp-underline: rgba(25, 118, 210, 0.35); /* Blue underline hover */
-  --wp-shadow: 0 6px 20px rgba(0, 43, 85, 0.08);
+  --wp-underline: rgba(25,118,210,0.35);
+  --wp-shadow: 0 10px 30px rgba(0,43,85,0.08);
+
+  --nav-height-lg: 96px;
+  --nav-height-sm: 72px;
 }
 
-/* Header surfaces */
-.navbar-root--light {
-  color: var(--wp-text);
-  -webkit-backdrop-filter: saturate(160%) blur(6px);
-  backdrop-filter: saturate(160%) blur(6px);
-}
-.navbar--top {
+/* Top-level header surface */
+.bl-header {
+  position: fixed;
+  inset: 0 auto auto 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 60;
+  transition: background 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms;
   background: var(--wp-bg-top);
-  border-bottom: 1px solid rgba(0, 43, 85, 0.06);
+  -webkit-backdrop-filter: blur(6px) saturate(140%);
+  backdrop-filter: blur(6px) saturate(140%);
+  border-bottom: 1px solid rgba(0,43,85,0.06);
 }
-.navbar--scrolled {
+
+/* Scrolled state: slight opacity, stronger border & shadow */
+.bl-header.scrolled {
   background: var(--wp-bg-scrolled);
-  border-bottom: 1px solid rgba(0, 43, 85, 0.12);
+  border-bottom: 1px solid rgba(0,43,85,0.12);
   box-shadow: var(--wp-shadow);
 }
 
-/* Drawer surface */
-.drawer-surface--light {
-  background: #ffffff;
+/* Container row inside header */
+.bl-header .bl-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: var(--nav-height-lg);
+  padding: 0 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Logo sizing */
-.logo {
-  height: 140px;
+/* Logo */
+.bl-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--wp-text);
+}
+.bl-logo img {
+  height: 45px;
   width: auto;
   object-fit: contain;
-  transition: transform 200ms ease, height 200ms ease, opacity 200ms ease;
+  transition: height 220ms ease, transform 220ms ease, opacity 220ms ease;
+  display: block;
 }
-.logo--lg {
-  height: 130px;
-}
-.logo--sm {
-  height: 70px;
+
+/* Smaller logo when scrolled */
+.bl-header.scrolled .bl-logo img {
+  height: 35px;
   transform: translateY(-1px);
 }
 
-/* Wordmark */
-.brand-wordmark--dark {
+/* Brand wordmark */
+.bl-wordmark {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 1.05rem;
   color: var(--wp-text);
-  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
+/* Desktop nav */
+.bl-nav {
+  display: none;
+  align-items: center;
+  gap: 0.25rem;
+}
+@media (min-width: 1024px){
+  .bl-nav { display: flex; }
+}
 
-
-/* Links */
-.nav-link--light {
+/* Each nav link block */
+.bl-nav-link {
+  position: relative;
+  padding: 0.5rem 0.9rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
   color: var(--wp-muted);
   text-decoration: none;
-  transition: color 160ms ease, background 160ms ease;
-  position: relative;
-}
-.nav-link--light:hover {
-  color: var(--wp-accent);
- 
-}
-.nav-link--active {
-  color: var(--wp-accent);
-  font-weight: 600;
+  transition: color 180ms ease, background 180ms ease;
 }
 
-/* Underline (desktop) */
-.nav-underline--light {
+/* hover / focus */
+.bl-nav-link:hover,
+.bl-nav-link:focus {
+  color: var(--wp-accent);
+  outline: none;
+}
+
+/* active state */
+.bl-nav-link.active {
+  color: var(--wp-accent);
+}
+
+/* underline element under each link (desktop) */
+.bl-nav-underline {
   position: absolute;
-  left: 12px;
-  right: 12px;
+  left: 14px;
+  right: 14px;
   bottom: 6px;
-  height: 2px;
+  height: 3px;
   background: transparent;
   border-radius: 999px;
+  transform-origin: left center;
   transition: background 160ms ease, transform 160ms ease, opacity 160ms ease;
   opacity: 0;
   transform: scaleX(0.6);
 }
-.nav-link--light:hover .nav-underline--light {
+.bl-nav-link:hover .bl-nav-underline {
   background: var(--wp-underline);
   opacity: 1;
   transform: scaleX(1);
 }
-.nav-link--active .nav-underline--light {
+.bl-nav-link.active .bl-nav-underline {
   background: linear-gradient(90deg, var(--wp-accent), var(--wp-accent-600));
   opacity: 1;
   transform: scaleX(1);
 }
 
-/* Mobile tap targets */
-.nav-link--light.mobile {
-  padding: 14px 20px;
+/* Mobile menu button (visible only on small) */
+.bl-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border-radius: 10px;
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+@media (min-width: 1024px){
+  .bl-menu-btn { display: none; }
 }
 
-/* Drawer Footer links */
-.drawer-footer a {
-  color: var(--wp-text);
-  border-radius: 10px;
+/* Drawer/backdrop */
+.bl-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,43,85,0.55);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  z-index: 70;
 }
-.drawer-footer a:hover {
-  background: rgba(25, 118, 210, 0.10);
+
+/* Drawer panel */
+.bl-drawer {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 320px;
+  max-width: 100%;
+  background: var(--wp-bg-top);
+  box-shadow: 0 30px 60px rgba(2,20,40,0.14);
+  border-left: 1px solid rgba(0,43,85,0.06);
+  z-index: 80;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Drawer links */
+.bl-drawer .bl-drawer-link {
+  display: block;
+  padding: 12px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--wp-text);
+  font-weight: 600;
+}
+.bl-drawer .bl-drawer-link:hover {
+  background: rgba(25,118,210,0.08);
   color: var(--wp-accent);
 }
 
-/* Focus rings (accessibility) */
-.nav-link--light:focus-visible,
+/* Drawer header */
+.bl-drawer .drawer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Drawer footer */
+.bl-drawer .drawer-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0,0,0,0.04);
+}
+.bl-drawer .drawer-footer a {
+  color: var(--wp-text);
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+.bl-drawer .drawer-footer a:hover {
+  background: rgba(25,118,210,0.10);
+  color: var(--wp-accent);
+}
+
+/* Focus visible styles */
+.bl-nav-link:focus-visible,
+.bl-menu-btn:focus-visible,
+.bl-drawer .bl-drawer-link:focus-visible,
 button:focus-visible,
 a:focus-visible {
-  outline: 2px solid rgba(25, 118, 210, 0.45);
-  outline-offset: 2px;
+  outline: 3px solid rgba(25,118,210,0.28);
+  outline-offset: 3px;
   border-radius: 12px;
+}
+
+/* Utilities */
+.bl-hide { display: none !important; }
+
+/* small tweak for very large displays */
+@media (min-width: 1400px) {
+  .bl-row { max-width: 1400px; padding: 0 2rem; }
 }

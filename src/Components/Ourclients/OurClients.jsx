@@ -55,77 +55,77 @@ const clients = [
   { id: 26, src: logo26, alt: "Lincoln Financial Group (4)" },
 ];
 
-export default function OurClients() {
-  const bluePrimary = "#1e40af";
-  const blueLight = "#dbeafe";
-  const blueDark = "#1e3a8a";
-  const black = "#0f0f0f";
-  const white = "#ffffff";
+export default function OurClientsCorporate() {
+  // BlueLife Corporate Colors
+  const primaryColor = "#0050A0";
+  const secondaryColor = "#00B0FF";
+  const accentColor = "#80D8FF";
+  const background = "#ffffff";
+  const cardBg = "#f8fafc";
+  const textDark = "#0f172a";
+  const textMuted = "#64748b";
+  const borderColor = "#e2e8f0";
 
   return (
-    <section
-      className="py-20 lg:py-28 relative overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, #ffffff 0%, #f8faff 50%, #ffffff 100%)",
-      }}
-    >
-      {/* Background Elements */}
+    <section className="py-10 lg:py-10 relative overflow-hidden bg-gradient-to-br from-slate-50 to-blue-50">
+      {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 left-10 w-20 h-20 rounded-full" style={{ backgroundColor: bluePrimary }}></div>
-        <div className="absolute bottom-20 right-20 w-32 h-32 rounded-full" style={{ backgroundColor: bluePrimary }}></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 rounded-full" style={{ backgroundColor: bluePrimary }}></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#0050A0] rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#00B0FF] rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/80 backdrop-blur-sm border shadow-lg mb-8"
-            style={{ borderColor: "rgba(30, 64, 175, 0.15)" }}>
-            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: bluePrimary }}></div>
-            <span className="text-sm font-bold tracking-widest uppercase" style={{ color: bluePrimary }}>
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white border shadow-sm mb-5"
+            style={{
+              borderColor: borderColor,
+            }}>
+            <div className="w-2 h-2 rounded-full bg-[#00B0FF]"></div>
+            <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: primaryColor }}>
               Trusted Partnerships
             </span>
-            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: bluePrimary }}></div>
+            <div className="w-2 h-2 rounded-full bg-[#00B0FF]"></div>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight" style={{ color: black }}>
-            Our <span style={{ color: bluePrimary }}>Partners</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4 tracking-tight text-gray-900">
+            Elite Product Providers & Affiliated Companies
+            <span style={{ color: primaryColor }}></span>
           </h2>
 
-          <div className="w-24 h-1.5 mx-auto mb-6 rounded-full" style={{ backgroundColor: bluePrimary }}></div>
+          {/* <div className="w-24 h-1.5 mx-auto mb-6 rounded-full bg-gradient-to-r from-[#0050A0] to-[#00B0FF]"></div> */}
 
-          <p className="text-xl opacity-80 max-w-3xl mx-auto" style={{ color: black }}>
-            Elite Product Providers & Affiliated Companies
-          </p>
-          <p className="text-lg opacity-70 mt-3 max-w-2xl mx-auto" style={{ color: black }}>
+          {/* <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            Elite Financial Product Providers
+          </p> */}
+          <p className="text-lg text-gray-600 mt-3 max-w-2xl mx-auto">
             Trusted partners we collaborate with to deliver tailored financial solutions.
           </p>
         </div>
 
-        {/* Main Grid */}
-        <div className="bg-white/95 backdrop-blur-md rounded-3xl p-8 md:p-12 border-2 shadow-2xl"
+        {/* Main Grid Container */}
+        <div className="bg-white rounded-3xl p-8 md:p-12 border shadow-2xl"
           style={{
-            borderColor: "rgba(30, 64, 175, 0.08)",
-            boxShadow: "0 25px 50px -12px rgba(30, 64, 175, 0.15)"
+            borderColor: borderColor,
+            boxShadow: "0 25px 50px -12px rgba(0, 80, 160, 0.15)"
           }}>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center justify-items-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-items-center">
             {clients.map((client) => (
               <div
                 key={client.id}
-                className="group relative flex items-center justify-center w-full aspect-[4/3] p-4 rounded-2xl transition-all duration-500 hover:scale-105 focus-within:scale-105"
+                className="group relative flex items-center justify-center w-full aspect-[4/3] p-4 rounded-xl transition-all duration-300 hover:scale-105 focus-within:scale-105 bg-white border"
                 tabIndex={0}
                 aria-label={client.alt}
                 style={{
-                  background: "linear-gradient(145deg, #ffffff, #f8faff)",
-                  boxShadow: "0 4px 20px rgba(30, 64, 175, 0.08), 0 2px 8px rgba(30, 64, 175, 0.04)"
+                  borderColor: borderColor,
+                  boxShadow: "0 4px 12px rgba(0, 80, 160, 0.08)"
                 }}
               >
                 {/* Hover Effect */}
-                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-blue-50 to-white border-2"
                   style={{
-                    background: `linear-gradient(145deg, ${blueLight}, #ffffff)`,
-                    boxShadow: "0 8px 32px rgba(30, 64, 175, 0.12)"
+                    borderColor: secondaryColor,
                   }}
                 ></div>
 
@@ -134,16 +134,16 @@ export default function OurClients() {
                   <img
                     src={client.src}
                     alt={client.alt}
-                    className="max-h-full max-w-full object-contain transition-all duration-500 group-hover:scale-110"
+                    className="max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-110"
                     loading="lazy"
                   />
                 </div>
 
                 {/* Tooltip on Hover */}
                 <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 translate-y-full opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-20">
-                  <div className="bg-black text-white text-xs font-medium px-3 py-1.5 rounded-lg whitespace-nowrap">
+                  <div className="bg-gray-900 text-white text-xs font-medium px-3 py-1.5 rounded-lg whitespace-nowrap">
                     {client.alt}
-                    <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-black rotate-45"></div>
+                    <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45"></div>
                   </div>
                 </div>
               </div>
@@ -153,14 +153,30 @@ export default function OurClients() {
           {/* Bottom Accent */}
           <div className="mt-12 flex items-center justify-center">
             <div className="text-center">
-              <p className="text-sm font-semibold tracking-widest uppercase mb-4 opacity-70" style={{ color: black }}>
-                KALKI FINANCIAL SOLUTIONS
+              <p className="text-sm font-semibold tracking-widest uppercase mb-4 text-gray-600">
+                BlueLife Financial Solutions
               </p>
-              <div className="h-1.5 rounded-full w-48 mx-auto opacity-80"
-                style={{ backgroundColor: bluePrimary }}>
+              <div className="h-1.5 rounded-full w-48 mx-auto bg-gradient-to-r from-[#0050A0] to-[#00B0FF]">
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Trust Indicators */}
+        <div className="grid grid-cols-3 gap-6 mt-12">
+          {[
+            { number: "26+", label: "Premium Partners", color: primaryColor },
+            { number: "15+", label: "Years Experience", color: secondaryColor },
+            { number: "1.2K+", label: "Clients Served", color: primaryColor }
+          ].map((stat, index) => (
+            <div
+              key={index}
+              className="text-center p-6 rounded-2xl bg-white shadow-lg border border-gray-200"
+            >
+              <div className="text-2xl font-bold mb-1" style={{ color: stat.color }}>{stat.number}</div>
+              <div className="text-sm text-gray-600">{stat.label}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

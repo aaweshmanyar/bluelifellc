@@ -1,6 +1,5 @@
-// FoundationalCommitments.TrustGreen.jsx
 import React, { useState, useRef, useEffect } from "react";
-import { ChevronRight, Mail, CheckCircle, Shield, Target, Clock } from "lucide-react";
+import { ChevronRight, Mail, CheckCircle, Shield, Target, Clock, Building2, Award, MessageCircle, ArrowRight, Phone } from "lucide-react";
 import faqimg from "../../assets/faqimg.jpg";
 
 const commitmentsData = [
@@ -26,15 +25,8 @@ const commitmentsData = [
   },
 ];
 
-export default function FoundationalCommitmentsTrustGreen() {
+export default function BlueLifeFAQMinimalist() {
   const [open, setOpen] = useState(null);
-  // Trust-focused green colors
-  const primaryGreen = "#059669";    // Professional green
-  const darkGreen = "#047857";       // Dark green
-  const lightGreen = "#d1fae5";      // Light green
-  const teal = "#0d9488";            // Teal accent
-  const darkGray = "#1f2937";
-
   const contentRefs = useRef({});
 
   useEffect(() => {
@@ -50,129 +42,150 @@ export default function FoundationalCommitmentsTrustGreen() {
   }, [open]);
 
   return (
-    <section id="faq" className="py-20 px-6 md:px-12 bg-white">
-      <div className="max-w-6xl mx-auto">
+    <section id="faq" className="py-5 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 via-white to-blue-50">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="flex justify-center items-center gap-4 mb-6">
-            <div className="w-16 h-px bg-emerald-200"></div>
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium mb-8 border border-blue-200">
-                <Shield className="w-5 h-5 text-blue-700" />
-                Frequently Asked Questions
-              </span>
-            </div>
-            <div className="w-16 h-px bg-emerald-200"></div>
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-gray-200 mb-5">
+            <div className="w-1.5 h-1.5 bg-gradient-to-r from-[#0050A0] to-[#00B0FF] rounded-full"></div>
+            <span className="font-medium text-gray-700 text-sm tracking-wide">
+              FAQ & SUPPORT
+            </span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-light mb-6 text-gray-900">
-            {/* Financial Guidance */}
-            <span className="block font-semibold mt-2 text-blue-600">Everything you want to know</span>
+
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
+            <span className="block">Frequently Asked</span>
+            <span className="bg-gradient-to-r from-[#0050A0] to-[#00B0FF] bg-clip-text text-transparent">
+              Questions
+            </span>
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-md text-gray-600 max-w-2xl mx-auto">
             Here’s what people commonly ask before working with us.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left Column - FAQ */}
-          <div>
-            <div className="space-y-2">
-              {commitmentsData.map((item, i) => {
-                const isOpen = open === i;
-                return (
-                  <div
-                    key={i}
-                    className="bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+          <div className="space-y-4">
+            {commitmentsData.map((item, i) => {
+              const isOpen = open === i;
+              return (
+                <div
+                  key={i}
+                  className="group bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-500 hover:-translate-y-1"
+                >
+                  <button
+                    onClick={() => setOpen(isOpen ? null : i)}
+                    className="w-full flex items-center justify-between text-left focus:outline-none"
                   >
-                    <button
-                      onClick={() => setOpen(isOpen ? null : i)}
-                      className="w-full flex items-center justify-between p-6 text-left group focus:outline-none"
-                    >
-                      <div className="flex items-start gap-4 flex-1">
-                        <CheckCircle
-                          className={`w-5 h-5 mt-1 flex-shrink-0 transition-colors ${isOpen ? "text-emerald-500" : "text-gray-400 group-hover:text-emerald-400"
-                            }`}
-                        />
-                        <h3 className={`font-medium text-gray-800 transition-colors flex-1 ${isOpen ? "text-gray-900" : "group-hover:text-gray-900"
-                          }`}>
-                          {item.title}
-                        </h3>
-                      </div>
-                      <ChevronRight
-                        className={`w-5 h-5 transform transition-transform duration-300 flex-shrink-0 ${isOpen ? "rotate-90 text-emerald-500" : "text-gray-400"
-                          }`}
-                      />
-                    </button>
+                    <div className="flex-1">
+                      <h3 className={`font-semibold text-gray-900 mb-2 transition-colors text-base ${isOpen ? 'text-[#0050A0]' : 'group-hover:text-[#0050A0]'
+                        }`}>
+                        {item.title}
+                      </h3>
+                    </div>
+                    <ChevronRight
+                      className={`w-5 h-5 transform transition-all duration-300 flex-shrink-0 ml-4 ${isOpen
+                        ? 'rotate-90 text-[#0050A0]'
+                        : 'text-gray-400 group-hover:text-[#0050A0]'
+                        }`}
+                    />
+                  </button>
 
-                    <div
-                      id={`faq-panel-${i}`}
-                      ref={(el) => (contentRefs.current[i] = el)}
-                      className="overflow-hidden transition-max-h duration-500 ease-in-out"
-                      style={{ maxHeight: 0 }}
-                    >
-                      <div className="pb-6 px-6">
-                        <div className="pl-9">
-                          <div className="w-full h-px bg-emerald-100 mb-4"></div>
-                          <p className="text-gray-600 leading-relaxed text-sm">{item.content}</p>
-                        </div>
-                      </div>
+                  <div
+                    ref={(el) => (contentRefs.current[i] = el)}
+                    className="overflow-hidden transition-max-height duration-300 ease-in-out"
+                    style={{ maxHeight: 0 }}
+                  >
+                    <div className="pt-4">
+                      <div className="w-full h-px bg-gray-200 mb-4"></div>
+                      <p className="text-gray-600 leading-relaxed text-sm">{item.content}</p>
                     </div>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
 
-            {/* Trust Indicators */}
-            <div className="mt-8 grid grid-cols-2 gap-4">
-              <div className="text-center p-4 bg-blue-50 rounded-lg border border-emerald-100">
-                <Target className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                <div className="font-bold text-gray-900">1,200+</div>
-                <div className="text-sm text-gray-600">Families</div>
+            {/* Quick Stats */}
+            <div className="grid grid-cols-3 gap-4 mt-8">
+              <div className="text-center p-4 bg-white rounded-xl border border-gray-200">
+                <div className="text-xl font-bold text-[#0050A0]">1.2K+</div>
+                <div className="text-xs text-gray-600">Clients</div>
               </div>
-              <div className="text-center p-4 bg-blue-50 rounded-lg border border-teal-100">
-                <Clock className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                <div className="font-bold text-gray-900">15+</div>
-                <div className="text-sm text-gray-600">Years Experience</div>
+              <div className="text-center p-4 bg-white rounded-xl border border-gray-200">
+                <div className="text-xl font-bold text-[#0050A0]">15+</div>
+                <div className="text-xs text-gray-600">Years</div>
+              </div>
+              <div className="text-center p-4 bg-white rounded-xl border border-gray-200">
+                <div className="text-xl font-bold text-[#0050A0]">98%</div>
+                <div className="text-xs text-gray-600">Satisfaction</div>
               </div>
             </div>
           </div>
 
-          {/* Right Column - Image & Contact */}
+          {/* Right Column - Visual Content */}
           <div className="space-y-8">
+            {/* Main Image Card */}
             <div className="relative rounded-2xl overflow-hidden shadow-lg group">
               <img
                 src={faqimg}
-                alt="Professional financial consultation"
-                className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700"
+                alt="Financial Advisory"
+                className="w-full h-64 object-cover transform transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-500/10"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#0050A0]/10 to-[#00B0FF]/5"></div>
 
-              {/* Overlay content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-gray-900/80 to-transparent">
-                <div className="text-white">
-                  <div className="font-semibold text-lg">Your Financial Security</div>
-                  <div className="text-sm text-emerald-200 mt-1">Protected with KALKI Expertise</div>
+              {/* Content Overlay */}
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 text-center">
+                  <h3 className="font-bold text-gray-900 mb-1">Expert Financial Guidance</h3>
+                  <p className="text-sm text-gray-600">Trusted by families worldwide</p>
                 </div>
               </div>
             </div>
 
             {/* Contact Card */}
-            <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-8 text-white shadow-lg">
-              <div className="text-center">
-                <Mail className="w-12 h-12 mx-auto mb-4 text-white" />
-                <h3 className="text-xl font-bold mb-2">Ready to Secure Your Future?</h3>
-                <p className="text-emerald-100 mb-4">
-                  Get personalized financial advice from our experts
+            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+              <div className="text-center mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-[#0050A0] to-[#00B0FF] rounded-2xl flex items-center justify-center mx-auto mb-3">
+                  <MessageCircle className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Still Have Questions?</h3>
+                <p className="text-gray-600 text-sm">
+                  Our team is here to help you with personalized financial advice
                 </p>
+              </div>
+
+              <div className="space-y-3">
                 <a
-                  href="mailto:Info@futurewesecure.com"
-                  className="inline-flex items-center gap-2 bg-white text-emerald-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
+                  href="mailto:info@bluelife.llc"
+                  className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-[#0050A0] hover:text-white group transition-all duration-300"
                 >
-                  <Mail className="w-4 h-4" />
-                  Contact Us Today
+                  <div className="flex items-center gap-3">
+                    <Mail className="w-5 h-5" />
+                    <span className="font-medium">Email Support</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                </a>
+
+                <a
+                  href="tel:+1234567890"
+                  className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-[#00B0FF] hover:text-white group transition-all duration-300"
+                >
+                  <div className="flex items-center gap-3">
+                    <Phone className="w-5 h-5" />
+                    <span className="font-medium">Call Now</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
             </div>
+
+            {/* Trust Badge */}
+            {/* <div className="bg-gradient-to-r from-[#0050A0] to-[#00B0FF] rounded-2xl p-6 text-white text-center">
+              <Award className="w-8 h-8 mx-auto mb-3" />
+              <div className="font-bold text-lg mb-1">Certified Experts</div>
+              <div className="text-blue-100 text-sm">ISO 9001 Certified Financial Planners</div>
+            </div> */}
           </div>
         </div>
       </div>

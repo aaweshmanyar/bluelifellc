@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { ChevronLeft, ChevronRight, X, Calendar, Users, MapPin } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, Calendar, Users, MapPin, ExternalLink, Play } from "lucide-react";
 
-/* --------------------- Firebase (unchanged) --------------------- */
 const firebaseConfig = {
   apiKey: "AIzaSyBg2p1nPZQ39AU91CDzRWeYtQjBs5HHf-Y",
   authDomain: "ajazgraphic-da740.firebaseapp.com",
@@ -15,7 +14,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export default function EventsGalleryVariantB() {
+// Modern BlueLife Brand Colors
+const brandColors = {
+  primary: "#00B0FF",
+  primaryColor: "#0050A0",
+  primaryHover: "#80D8FF",
+  gradient: "linear-gradient(135deg, #0050A0 0%, #00B0FF 100%)",
+  lightBg: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdfa 100%)",
+  cardGradient: "linear-gradient(135deg, #ffffff 0%, #f8fdff 100%)",
+  accentBorder: "rgba(0, 176, 255, 0.2)",
+  textDark: "#003366",
+  textLight: "#666666"
+};
+
+export default function EventsGalleryModernVariant() {
   const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
@@ -29,12 +41,6 @@ export default function EventsGalleryVariantB() {
 
   const [visibleIds, setVisibleIds] = useState(new Set());
   const observerRef = useRef(null);
-
-  // Brand colors
-  const bluePrimary = "#1e40af";
-  const blueDark = "#1e3a8a";
-  const blueLight = "#dbeafe";
-  const black = "#0f0f0f";
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -80,7 +86,7 @@ export default function EventsGalleryVariantB() {
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.1 }
     );
     return () => {
       observerRef.current?.disconnect?.();
@@ -133,46 +139,54 @@ export default function EventsGalleryVariantB() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-white to-blue-50/30">
+    <section
+      className="min-h-screen py-28"
+      style={{ background: brandColors.lightBg }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-5 py-5">
-          {/* <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/80 backdrop-blur-sm border shadow-lg mb-8"
-            style={{ borderColor: "rgba(30, 64, 175, 0.15)" }}>
-            <div className="w-2 h-2  rounded-full" style={{ backgroundColor: bluePrimary }}></div>
-            <span className="text-sm font-bold tracking-widest uppercase" style={{ color: bluePrimary }}>
-              Events Gallery
+        <div className="text-center mb-10">
+          {/* Brand Badge */}
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/80 backdrop-blur-sm border shadow-lg mb-8"
+            style={{ borderColor: brandColors.accentBorder }}>
+            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#0050A0] to-[#00B0FF]"></div>
+            <span className="text-sm font-bold tracking-widest uppercase" style={{ color: "#0050A0" }}>
+              BlueLife Events
             </span>
-            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: bluePrimary }}></div>
-          </div> */}
+            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#0050A0] to-[#00B0FF]"></div>
+          </div>
 
-          <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight" style={{ color: black }}>
-            Gallery — <span style={{ color: bluePrimary }}>Magazine View</span>
+          <h2 className="text-3xl md:text-4xl lg:yext-5xl font-black mb-5 tracking-tight" style={{ color: brandColors.textDark }}>
+            Gallery  <span style={{
+              background: brandColors.gradient,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}>— Magazine View</span>
           </h2>
 
-          {/* <div className="w-24 h-1.5 mx-auto mb-6 rounded-full" style={{ backgroundColor: bluePrimary }}></div> */}
+          <div className="w-24 h-1.5 mx-auto mb-2 rounded-full" style={{ background: brandColors.gradient }}></div>
 
-          <p className="text-xl opacity-80 max-w-3xl mx-auto" style={{ color: black }}>
-            Carefully composed event pages with a large hero image and preview strip — fast to scan, pleasant to explore.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Carefully composed event pages with a large hero image and a right-hand preview strip — fast to scan, pleasant to read.
           </p>
         </div>
 
         {/* Loading */}
         {loading && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="rounded-2xl p-6 bg-white/40 animate-pulse h-64" />
+              <div key={i} className="rounded-3xl p-6 bg-white/60 animate-pulse h-96 shadow-lg" />
             ))}
           </div>
         )}
 
         {/* Error */}
         {!loading && err && (
-          <div className="text-center text-black/70 py-16">{err}</div>
+          <div className="text-center text-gray-600 py-16 text-lg">{err}</div>
         )}
 
-        {/* Events Grid */}
-        <div className="space-y-12">
+        {/* Events Grid - Modern Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {!loading && !err && eventsData.map((ev) => {
             const images = Array.isArray(ev.images) ? ev.images : [];
             const hero = heroImageForEvent(ev);
@@ -183,141 +197,138 @@ export default function EventsGalleryVariantB() {
                 key={ev.id}
                 data-event-id={String(ev.id)}
                 ref={setCardRef}
-                className={`bg-white rounded-3xl overflow-hidden border-2 shadow-xl hover:shadow-2xl transition-all duration-500 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+                className={`bg-white rounded-3xl overflow-hidden border-2 shadow-2xl hover:shadow-3xl transition-all duration-500 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                   }`}
                 style={{
-                  borderColor: "rgba(30, 64, 175, 0.1)",
-                  transition: "opacity .55s ease, transform .55s cubic-bezier(.2,.9,.2,1), box-shadow .3s ease"
+                  background: brandColors.cardGradient,
+                  borderColor: brandColors.accentBorder,
                 }}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
-                  {/* Main Hero Image */}
-                  <div className="lg:col-span-2">
-                    <div className="relative rounded-2xl overflow-hidden shadow-lg">
-                      <button
-                        onClick={() => openLightbox(images, 0, ev.title || `Event ${ev.id}`)}
-                        className="group block w-full text-left"
-                        aria-label={`Open gallery for ${ev.title || `Event ${ev.id}`}`}
-                      >
-                        <div className="relative h-72 md:h-96 w-full bg-gray-100 overflow-hidden">
-                          {hero ? (
-                            <img
-                              src={hero}
-                              alt={ev.title || ""}
-                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                              loading="lazy"
-                            />
-                          ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
-                              <Calendar className="w-16 h-16 opacity-30" style={{ color: bluePrimary }} />
-                            </div>
-                          )}
+                {/* Image Section */}
+                <div className="relative h-64 overflow-hidden">
+                  <button
+                    onClick={() => openLightbox(images, 0, ev.title || `Event ${ev.id}`)}
+                    className="group block w-full h-full text-left"
+                  >
+                    {hero ? (
+                      <img
+                        src={hero}
+                        alt={ev.title || ""}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-cyan-50 to-blue-50 flex items-center justify-center">
+                        <Calendar className="w-16 h-16 opacity-30" style={{ color: brandColors.primary }} />
+                      </div>
+                    )}
 
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-                          {/* Event Info Overlay */}
-                          <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                            <h3 className="text-2xl md:text-3xl font-bold leading-tight drop-shadow-lg">
-                              {ev.title || `Event ${ev.id}`}
-                            </h3>
-                            <p className="mt-2 text-white/90 text-lg drop-shadow-lg max-w-2xl">
-                              {ev.subtitle || (ev.description ? String(ev.description).slice(0, 120) + "…" : "")}
-                            </p>
-                          </div>
+                    {/* Image Count Badge */}
+                    {images.length > 0 && (
+                      <div className="absolute top-4 right-4">
+                        <span className="px-3 py-2 rounded-full text-sm font-bold text-white shadow-lg"
+                          style={{ background: brandColors.gradient }}>
+                          {images.length} photos
+                        </span>
+                      </div>
+                    )}
 
-                          {/* Image Count Badge */}
-                          {images.length > 0 && (
-                            <div className="absolute top-4 right-4">
-                              <span className="px-3 py-2 rounded-full text-sm font-bold text-white shadow-lg backdrop-blur-sm bg-black/40">
-                                {images.length} photos
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                      </button>
+                    {/* Quick Info Overlay */}
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Calendar className="w-4 h-4 text-white" />
+                        <span className="text-white/90 text-sm font-medium">{ev.date || "Date TBA"}</span>
+                      </div>
+                      <h3 className="text-xl font-bold text-white leading-tight">
+                        {ev.title || `Event ${ev.id}`}
+                      </h3>
                     </div>
-                  </div>
+                  </button>
+                </div>
 
-                  {/* Sidebar Content */}
-                  <div className="space-y-4">
-                    {/* Event Details Card */}
-                    <div className="bg-blue-50 rounded-2xl p-4 border-2" style={{ borderColor: "rgba(30, 64, 175, 0.1)" }}>
-                      <h4 className="font-bold text-lg mb-3" style={{ color: black }}>
-                        Event Details
-                      </h4>
+                {/* Content Section */}
+                <div className="p-6">
+                  {/* Description */}
+                  <p className="text-gray-600 mb-6 leading-relaxed">
+                    {ev.subtitle || (ev.description ? String(ev.description).slice(0, 120) + "…" : "Event details coming soon...")}
+                  </p>
 
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-3">
-                          <Calendar className="w-4 h-4" style={{ color: bluePrimary }} />
-                          <span className="text-sm text-black/70">{ev.date || "Date TBA"}</span>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                          <MapPin className="w-4 h-4" style={{ color: bluePrimary }} />
-                          <span className="text-sm text-black/70">{ev.location || "Location TBA"}</span>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                          <Users className="w-4 h-4" style={{ color: bluePrimary }} />
-                          <span className="text-sm text-black/70">{ev.attendees || "Multiple attendees"}</span>
-                        </div>
+                  {/* Details Grid */}
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-100">
+                      <MapPin className="w-5 h-5" style={{ color: brandColors.primary }} />
+                      <div>
+                        <p className="text-xs text-gray-500">Location</p>
+                        <p className="text-sm font-semibold text-gray-800">{ev.location || "TBA"}</p>
                       </div>
                     </div>
 
-                    {/* Image Previews */}
-                    <div className="grid grid-cols-2 gap-3">
-                      {images.slice(0, 4).map((src, i) => (
+                    <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-100">
+                      <Users className="w-5 h-5" style={{ color: brandColors.primary }} />
+                      <div>
+                        <p className="text-xs text-gray-500">Attendees</p>
+                        <p className="text-sm font-semibold text-gray-800">{ev.attendees || "Multiple"}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => openLightbox(images, 0, ev.title)}
+                      className="flex-1 py-3 px-4 rounded-xl font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      style={{ background: brandColors.gradient }}
+                      disabled={images.length === 0}
+                    >
+                      <Play className="w-4 h-4" />
+                      View Gallery
+                    </button>
+
+                    {ev.meetingLink && (
+                      <a
+                        href={ev.meetingLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-3 rounded-xl font-semibold border-2 transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center gap-2"
+                        style={{ borderColor: brandColors.primary, color: brandColors.primary }}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
+
+                  {/* Image Previews */}
+                  {images.length > 0 && (
+                    <div className="mt-4 flex gap-2">
+                      {images.slice(0, 3).map((src, i) => (
                         <button
                           key={i}
                           onClick={() => openLightbox(images, i, ev.title)}
-                          className="group relative block rounded-xl overflow-hidden border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg"
-                          style={{ borderColor: "rgba(30, 64, 175, 0.1)" }}
-                          aria-label={`Open image ${i + 1}`}
+                          className="flex-1 h-16 rounded-lg overflow-hidden border-2 transition-all duration-300 hover:scale-105 hover:shadow-md"
+                          style={{ borderColor: brandColors.accentBorder }}
                         >
-                          <div className="aspect-square overflow-hidden">
-                            <img
-                              src={src}
-                              alt={`preview ${i + 1}`}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                              loading="lazy"
-                            />
-                          </div>
-                          <div className="absolute inset-0 bg-blue-500/0 group-hover:bg-blue-500/10 transition-colors duration-300" />
+                          <img
+                            src={src}
+                            alt={`Preview ${i + 1}`}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
                         </button>
                       ))}
-
-                      {images.length === 0 && (
-                        <div className="col-span-2 rounded-xl border-2 p-6 text-center" style={{ borderColor: "rgba(30, 64, 175, 0.1)" }}>
-                          <Calendar className="w-8 h-8 mx-auto mb-2 opacity-40" style={{ color: bluePrimary }} />
-                          <p className="text-sm text-black/60">No photos available</p>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="flex flex-col gap-3">
-                      <button
-                        onClick={() => openLightbox(images, 0, ev.title)}
-                        className="w-full py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-                        style={{ backgroundColor: bluePrimary }}
-                        disabled={images.length === 0}
-                      >
-                        View Gallery ({images.length})
-                      </button>
-
-                      {ev.meetingLink && (
-                        <a
-                          href={ev.meetingLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full py-3 rounded-xl font-semibold text-center border-2 transition-all duration-300 hover:shadow-lg hover:scale-105"
-                          style={{ borderColor: bluePrimary, color: bluePrimary }}
+                      {images.length > 3 && (
+                        <button
+                          onClick={() => openLightbox(images, 0, ev.title)}
+                          className="flex-1 h-16 rounded-lg border-2 transition-all duration-300 hover:scale-105 hover:shadow-md flex items-center justify-center font-semibold text-sm"
+                          style={{ borderColor: brandColors.accentBorder, color: brandColors.primary }}
                         >
-                          Join Meeting
-                        </a>
+                          +{images.length - 3}
+                        </button>
                       )}
                     </div>
-                  </div>
+                  )}
                 </div>
               </article>
             );
@@ -325,35 +336,37 @@ export default function EventsGalleryVariantB() {
         </div>
 
         {/* Bottom Branding */}
-        <div className="text-center mt-16">
-          <div className="inline-flex items-center gap-4 px-6 py-3 rounded-full bg-white border shadow-lg"
-            style={{ borderColor: "rgba(30, 64, 175, 0.1)" }}>
-            <span className="text-sm font-semibold tracking-widest uppercase opacity-70" style={{ color: black }}>
-              KALKI FINANCIAL SOLUTIONS
+        {/* <div className="text-center mt-16">
+          <div className="inline-flex items-center gap-6 px-8 py-4 rounded-2xl bg-white/80 backdrop-blur-sm border shadow-lg"
+            style={{ borderColor: brandColors.accentBorder }}>
+            <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#0050A0] to-[#00B0FF] animate-pulse"></div>
+            <span className="text-lg font-bold tracking-wider uppercase" style={{ color: brandColors.textDark }}>
+              BlueLife LLC • Premium Events
             </span>
+            <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#0050A0] to-[#00B0FF] animate-pulse"></div>
           </div>
-        </div>
+        </div> */}
       </div>
 
-      {/* Enhanced Lightbox */}
+      {/* Lightbox */}
       {lightbox.open && (
-        <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4" onClick={closeLightbox}>
+        <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4" onClick={closeLightbox}>
           <div className="relative w-full max-w-6xl max-h-[90vh] rounded-2xl overflow-hidden bg-white" onClick={(e) => e.stopPropagation()}>
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: "rgba(30, 64, 175, 0.1)" }}>
-              <h3 className="font-bold text-lg" style={{ color: black }}>{lightbox.title}</h3>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+              <h3 className="font-bold text-lg text-gray-900">{lightbox.title}</h3>
               <div className="flex items-center gap-4">
-                <span className="px-3 py-1 rounded-full text-sm font-semibold text-white" style={{ backgroundColor: bluePrimary }}>
+                <span className="px-3 py-1 rounded-full text-sm font-semibold text-white" style={{ background: brandColors.gradient }}>
                   {lightbox.index + 1} / {lightbox.images.length}
                 </span>
                 <button onClick={closeLightbox} className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                  <X className="w-5 h-5" />
+                  <X className="w-5 h-5 text-gray-600" />
                 </button>
               </div>
             </div>
 
             {/* Image Content */}
-            <div className="relative bg-black flex items-center justify-center p-8">
+            <div className="relative bg-gray-900 flex items-center justify-center p-8">
               <img
                 src={lightbox.images[lightbox.index]}
                 alt={`lightbox ${lightbox.index + 1}`}
@@ -366,7 +379,7 @@ export default function EventsGalleryVariantB() {
                 className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-white"
                 aria-label="Previous"
               >
-                <ChevronLeft className="w-6 h-6" style={{ color: bluePrimary }} />
+                <ChevronLeft className="w-6 h-6" style={{ color: brandColors.primary }} />
               </button>
 
               <button
@@ -374,7 +387,7 @@ export default function EventsGalleryVariantB() {
                 className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-white"
                 aria-label="Next"
               >
-                <ChevronRight className="w-6 h-6" style={{ color: bluePrimary }} />
+                <ChevronRight className="w-6 h-6" style={{ color: brandColors.primary }} />
               </button>
             </div>
           </div>

@@ -2,18 +2,31 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../Components/Firebase/firebase";
 import { useNavigate } from "react-router-dom";
-import { Calendar, User, ArrowRight, Clock, BookOpen } from "lucide-react";
+import { Calendar, User, ArrowRight, Clock, BookOpen, TrendingUp, Target } from "lucide-react";
 
 /**
- * BLOG — Minimalist Professional
- * - Clean, focused layout
- * - Professional financial aesthetic
- * - KALKI brand consistency
+ * BLOG — Modern Professional
+ * - Clean card layout
+ * - Professional business aesthetic
+ * - BlueLife brand consistency
  */
-export default function BlogVariantB() {
+export default function BlogModernVariant() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  // BlueLife Professional Colors
+  const brandColors = {
+    lightBg: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdfa 100%)",
+    primary: "#00B0FF",
+    primaryHover: "#80D8FF",
+    gradient: "linear-gradient(135deg, #0050A0 0%, #00B0FF 100%)",
+    textDark: "#003366",
+    textLight: "#666666",
+    cardGradient: "linear-gradient(145deg, #ffffff, #f8fdff)",
+    accentBorder: "rgba(0, 176, 255, 0.15)",
+    accentBg: "rgba(0, 176, 255, 0.05)"
+  };
 
   useEffect(() => {
     const loadBlogs = async () => {
@@ -33,10 +46,6 @@ export default function BlogVariantB() {
     loadBlogs();
   }, []);
 
-  // Brand colors
-  const bluePrimary = "#1e40af";
-  const black = "#0f0f0f";
-
   const formatDate = (timestamp) => {
     if (!timestamp) return "Recent";
     const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
@@ -54,109 +63,129 @@ export default function BlogVariantB() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50/50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Minimal Header */}
+    <section
+      className="min-h-screen py-28"
+      style={{ background: brandColors.lightBg }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Professional Header */}
         <div className="text-center mb-10">
-          <div className="flex justify-center items-center gap-6 mb-8">
-            {/* <div className="w-16 h-0.5" style={{ backgroundColor: bluePrimary }}></div>
-            <span className="text-xs font-medium tracking-widest uppercase opacity-80" style={{ color: black }}>
-              KALKI FINANCIAL SOLUTIONS
+          {/* Brand Indicator */}
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/80 backdrop-blur-sm border shadow-lg mb-8"
+            style={{ borderColor: brandColors.accentBorder }}>
+            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#0050A0] to-[#00B0FF]"></div>
+            <span className="text-sm font-bold tracking-widest uppercase" style={{ color: "#0050A0" }}>
+              BlueLife Publications
             </span>
-            <div className="w-16 h-0.5" style={{ backgroundColor: bluePrimary }}></div> */}
+            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#0050A0] to-[#00B0FF]"></div>
           </div>
 
-          <h1 className="text-3xl md:text-4xl lg:5xl font-black mb-2 tracking-tight">
-            <span style={{ color: black }}>Blog <span style={{ color: "bluePrimary" }}>& </span>Insights</span>
+          <h1 className="text-3xl md:text-4xl lg:5xl font-black mb-2 tracking-tight" style={{ color: brandColors.textDark }}>
+            Blog & <span style={{
+              background: brandColors.gradient,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}> Insights</span>
           </h1>
 
-          <div className="space-y-4">
-            {/* <p className="text-2xl font-light opacity-90" style={{ color: black }}>
-              Financial Blog
-            </p> */}
-            <p className="text-lg opacity-80 max-w-2xl mx-auto" style={{ color: black }}>
-              Expert perspectives on wealth management and financial strategy.
-            </p>
-          </div>
+          <div className="w-20 h-1 mx-auto mb-2 rounded-full" style={{ background: brandColors.gradient }}></div>
+
+          <p className="text-md text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Explore curated knowledge across financial topics.
+          </p>
         </div>
 
         {loading && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             {Array.from({ length: 4 }).map((_, index) => (
-              <div key={index} className="bg-white rounded-2xl p-6 border-2 animate-pulse"
-                style={{ borderColor: "rgba(30, 64, 175, 0.1)" }}>
-                <div className="h-48 bg-gray-200 rounded-xl mb-4"></div>
-                <div className="h-4 bg-gray-200 rounded mb-3"></div>
-                <div className="h-4 bg-gray-200 rounded mb-2 w-3/4"></div>
-                <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-              </div>
+              <div key={index} className="bg-white rounded-2xl p-6 border-2 animate-pulse h-80"
+                style={{ borderColor: brandColors.accentBorder }} />
             ))}
           </div>
         )}
 
         {!loading && blogs.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {blogs.map((blog) => (
               <article
                 key={blog.id}
-                className="group bg-white rounded-2xl p-6 border-2 hover:border-blue-200 transition-all duration-500 hover:shadow-xl cursor-pointer"
+                className="group bg-white rounded-2xl overflow-hidden border-2 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 cursor-pointer"
                 style={{
-                  borderColor: "rgba(30, 64, 175, 0.1)",
-                  background: "linear-gradient(145deg, #ffffff, #fafbff)"
+                  background: brandColors.cardGradient,
+                  borderColor: brandColors.accentBorder,
                 }}
                 onClick={() => navigate(`/blog/${blog.id}`, { state: { blog } })}
               >
-                <div className="flex gap-4">
-                  {/* Image */}
-                  <div className="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden">
+                <div className="flex flex-col md:flex-row h-full">
+                  {/* Image Section */}
+                  <div className="md:w-2/5 relative overflow-hidden">
                     <img
                       src={blog.image}
                       alt={blog.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-48 md:h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       loading="lazy"
                     />
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-bold mb-2 leading-tight line-clamp-2" style={{ color: black }}>
-                      {blog.title}
-                    </h3>
-
-                    <p className="text-black/70 text-sm leading-relaxed mb-3 line-clamp-2">
-                      {blog.summary || String(blog.content).slice(0, 80) + "..."}
-                    </p>
-
-                    <div className="flex items-center justify-between text-xs text-black/60 mb-3">
-                      <div className="flex items-center gap-3">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
-                          <span>{formatDate(blog.createdAt)}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          <span>{getReadTime(blog.content)}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
-                          <User className="w-3 h-3" style={{ color: bluePrimary }} />
-                        </div>
-                        <span className="text-xs font-medium" style={{ color: bluePrimary }}>
-                          {blog.author || "KALKI Team"}
+                    <div className="absolute top-4 left-4">
+                      <div className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm border shadow-sm"
+                        style={{ borderColor: brandColors.accentBorder }}>
+                        <span className="text-xs font-semibold" style={{ color: brandColors.primary }}>
+                          {formatDate(blog.createdAt)}
                         </span>
                       </div>
+                    </div>
+                  </div>
 
-                      <button
-                        className="text-sm font-semibold transition-colors duration-300 hover:underline flex items-center gap-1 group-hover:gap-2"
-                        style={{ color: bluePrimary }}
-                      >
-                        Read
-                        <ArrowRight className="w-3 h-3" />
-                      </button>
+                  {/* Content Section */}
+                  <div className="md:w-3/5 p-6 flex flex-col">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold mb-3 leading-tight line-clamp-2 group-hover:text-blue-600 transition-colors"
+                        style={{ color: brandColors.textDark }}>
+                        {blog.title}
+                      </h3>
+
+                      <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                        {blog.summary || String(blog.content).slice(0, 150) + "..."}
+                      </p>
+                    </div>
+
+                    <div className="space-y-3">
+                      {/* Meta Information */}
+                      <div className="flex items-center justify-between text-xs text-gray-500">
+                        <div className="flex items-center gap-4">
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            <span>{getReadTime(blog.content)}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <TrendingUp className="w-3 h-3" />
+                            <span>Expert</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Author and CTA */}
+                      <div className="flex items-center justify-between pt-3 border-t"
+                        style={{ borderColor: brandColors.accentBorder }}>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#0050A0] to-[#00B0FF] flex items-center justify-center">
+                            <User className="w-4 h-4 text-white" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-semibold" style={{ color: brandColors.textDark }}>
+                              {blog.author || "BlueLife Team"}
+                            </p>
+                            <p className="text-xs text-gray-500">Senior Analyst</p>
+                          </div>
+                        </div>
+
+                        <button
+                          className="px-4 py-2 rounded-lg font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center gap-2 group-hover:gap-3"
+                          style={{ background: brandColors.gradient }}
+                        >
+                          Read
+                          <ArrowRight className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -167,26 +196,33 @@ export default function BlogVariantB() {
 
         {!loading && blogs.length === 0 && (
           <div className="text-center py-16">
-            <div className="bg-white rounded-2xl p-8 border-2 max-w-md mx-auto" style={{ borderColor: "rgba(30, 64, 175, 0.1)" }}>
-              <BookOpen className="w-12 h-12 mx-auto mb-4 opacity-40" style={{ color: bluePrimary }} />
-              <h3 className="text-xl font-bold mb-2" style={{ color: black }}>Content Coming Soon</h3>
-              <p className="text-black/70">We're crafting valuable financial insights for you.</p>
+            <div className="bg-white rounded-2xl p-12 border-2 max-w-md mx-auto shadow-lg"
+              style={{ borderColor: brandColors.accentBorder }}>
+              <Target className="w-16 h-16 mx-auto mb-6 opacity-60" style={{ color: brandColors.primary }} />
+              <h3 className="text-2xl font-bold mb-3" style={{ color: brandColors.textDark }}>Insights in Progress</h3>
+              <p className="text-gray-600 mb-6">Our experts are preparing valuable market analysis.</p>
+              <button
+                className="px-8 py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105"
+                style={{ background: brandColors.gradient }}
+              >
+                Join Waitlist
+              </button>
             </div>
           </div>
         )}
 
-        {/* Minimal CTA */}
-        <div className="text-center mt-16">
-          <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-white border shadow-lg"
-            style={{ borderColor: "rgba(30, 64, 175, 0.1)" }}>
-            <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: bluePrimary }}>
-              Stay Updated with KALKI
+        {/* Professional CTA */}
+        <div className="text-center mt-10">
+          <div className="inline-flex items-center gap-8 px-8 py-6 rounded-2xl bg-white/80 backdrop-blur-sm border shadow-lg"
+            style={{ borderColor: brandColors.accentBorder }}>
+            <span className="text-lg font-bold tracking-wider uppercase" style={{ color: brandColors.textDark }}>
+              BlueLife Market Intelligence
             </span>
             <button
-              className="px-6 py-2 rounded-lg font-semibold text-white transition-all duration-300 hover:shadow-lg"
-              style={{ backgroundColor: bluePrimary }}
+              className="px-8 py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105"
+              style={{ background: brandColors.gradient }}
             >
-              Subscribe
+              Subscribe to Reports
             </button>
           </div>
         </div>

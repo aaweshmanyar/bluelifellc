@@ -1,30 +1,29 @@
 import React, { useState } from "react";
-import { FaWhatsapp, FaStar } from "react-icons/fa";
-import { Mail, Phone, Calendar, ShieldCheck, MapPin, Award, TrendingUp, Users, CheckCircle } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+import { Mail, Phone, Calendar, ShieldCheck, MapPin, Award, TrendingUp, Users, CheckCircle, MessageCircle, ArrowRight } from "lucide-react";
 import emailjs from "emailjs-com";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const ContactSectionV3 = () => {
+const ContactSectionGlassmorphism = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
-    company: "", // honeypot
+    company: "",
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // New color theme based on KALKI FINANCIAL SOLUTIONS branding
-  const darkBg = "#0f172a";
-  const cardDark = "#1e293b";
-  const primaryColor = "#2563eb"; // Professional blue
-  const secondaryColor = "#059669"; // Complementary green
-  const accentColor = "#7c3aed"; // Purple accent
-  const accentLight = "#a78bfa";
-  const textLight = "#f1f5f9";
+  // BlueLife LLC Color Scheme
+  const darkBg = "#001833";
+  const cardDark = "#002147";
+  const primaryColor = "#0050A0";
+  const secondaryColor = "#00B0FF";
+  const accentColor = "#80D8FF";
+  const textLight = "#E0F2FF";
   const textMuted = "#94a3b8";
-  const borderColor = "#334155";
+  const borderColor = "#1e3a5f";
 
   const validateForm = () => {
     const newErrors = {};
@@ -84,26 +83,43 @@ const ContactSectionV3 = () => {
 
   return (
     <section className="relative overflow-hidden min-h-screen" style={{
-      background:
-        `radial-gradient(800px 260px at 12% 6%, rgba(37, 99, 235, 0.10), transparent 30%), ` +
-        `linear-gradient(180deg, #03050a 0%, #071127 30%, #0b0f16 60%)`,
+      background: "linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #e8f4f8 100%)",
     }}>
-      <ToastContainer position="top-right" autoClose={3000} theme="dark" />
+      <ToastContainer position="top-right" autoClose={3000} theme="light" />
 
-      {/* Animated background elements */}
+      {/* Animated background elements with glassmorphism */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full blur-3xl animate-pulse backdrop-blur-xl"
+          style={{
+            background: 'rgba(0, 176, 255, 0.08)',
+            border: '1px solid rgba(0, 176, 255, 0.15)'
+          }}></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full blur-3xl animate-pulse delay-1000 backdrop-blur-xl"
+          style={{
+            background: 'rgba(0, 80, 160, 0.08)',
+            border: '1px solid rgba(0, 80, 160, 0.15)'
+          }}></div>
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full animate-bounce backdrop-blur-xl"
+          style={{
+            background: 'rgba(128, 216, 255, 0.06)',
+            border: '1px solid rgba(128, 216, 255, 0.12)',
+            boxShadow: '0 8px 32px rgba(0, 176, 255, 0.1)'
+          }}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-24 h-24 rounded-full animate-pulse delay-700 backdrop-blur-xl"
+          style={{
+            background: 'rgba(0, 176, 255, 0.06)',
+            border: '1px solid rgba(0, 176, 255, 0.12)',
+            boxShadow: '0 8px 32px rgba(0, 176, 255, 0.08)'
+          }}></div>
       </div>
 
       {/* Grid pattern overlay */}
       <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(37, 99, 235, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(37, 99, 235, 0.1) 1px, transparent 1px)
+            linear-gradient(rgba(0, 176, 255, 0.4) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 176, 255, 0.4) 1px, transparent 1px)
           `,
           backgroundSize: '50px 50px'
         }}
@@ -112,155 +128,215 @@ const ContactSectionV3 = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-10 pt-20 pb-16 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl mb-8"
-            style={{ background: 'rgba(255,255,255,0.05)', border: `1px solid ${borderColor}` }}>
-            <div className="flex items-center gap-2">
-              {/* {[1, 2, 3, 4, 5].map((star) => (
-                <FaStar key={star} className="w-4 h-4" style={{ color: primaryColor }} />
-              ))} */}
-            </div>
-            <span className="text-sm font-semibold uppercase tracking-wider text-white">
-              We reply within 24 hours
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl mb-8 backdrop-blur-xl transition-all duration-300 hover:scale-105"
+            style={{
+              background: 'rgba(255, 255, 255, 0.6)',
+              border: `1px solid rgba(0, 176, 255, 0.3)`,
+              boxShadow: '0 4px 16px rgba(0, 176, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+            }}>
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: secondaryColor }}></div>
+            <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: primaryColor }}>
+              BLUELIFE FINANCIAL PARTNERS
             </span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl  lg:text-5xl font-bold mb-6" style={{ color: textLight }}>
-            Let's talk about your goals
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style={{ color: '#1e293b' }}>
+            Start Your{" "}
+            <span className="bg-gradient-to-r from-[#0050A0] to-[#00B0FF] bg-clip-text text-transparent">
+              Financial Journey
+            </span>
           </h2>
 
-          <p className="text-lg max-w-3xl mx-auto leading-relaxed" style={{ color: textMuted }}>
-            Send a message, chat on WhatsApp, or book a quick call—whatever works best for you.
+          <p className="text-xl max-w-3xl mx-auto leading-relaxed" style={{ color: '#475569' }}>
+            Connect with our expert advisors for personalized financial solutions that secure your future.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           {/* Left Column - Contact Methods */}
           <div className="space-y-6">
-            {/* Main Contact Card */}
-            <div className="rounded-3xl p-8 relative overflow-hidden"
-              style={{ background: cardDark, border: `1px solid ${borderColor}` }}>
-              {/* Primary accent line */}
-              <div className="absolute top-0 left-8 right-8 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></div>
+            {/* Main Contact Card with Enhanced Glassmorphism */}
+            <div className="rounded-3xl p-8 relative overflow-hidden backdrop-blur-2xl border transition-all duration-300 hover:shadow-2xl"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.4) 100%)',
+                borderColor: 'rgba(0, 176, 255, 0.3)',
+                boxShadow: '0 8px 32px rgba(0, 176, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.5)'
+              }}>
 
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center"
-                  style={{ background: 'rgba(37, 99, 235, 0.1)', border: `1px solid rgba(37, 99, 235, 0.3)` }}>
-                  <Award className="w-7 h-7" style={{ color: primaryColor }} />
+              {/* Gradient Accent */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0050A0] via-[#00B0FF] to-[#80D8FF] rounded-t-3xl"></div>
+
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-16 h-16 rounded-2xl flex items-center justify-center backdrop-blur-xl border transition-all duration-300 hover:scale-110"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.6)',
+                    borderColor: `rgba(0, 176, 255, 0.3)`,
+                    boxShadow: '0 4px 16px rgba(0, 176, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+                  }}>
+                  <Award className="w-8 h-8" style={{ color: secondaryColor }} />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold" style={{ color: textLight }}>KALKI FINANCIAL SOLUTIONS</h3>
-                  <p style={{ color: textMuted }}>Excellence in Financial Planning</p>
+                  <h3 className="text-2xl font-bold" style={{ color: '#1e293b' }}>BlueLife LLC</h3>
+                  <p style={{ color: '#64748b' }}>Financial Security & Growth</p>
                 </div>
               </div>
 
-              {/* Contact Info */}
+              {/* Contact Info with Glassmorphism */}
               <div className="space-y-4 mb-8">
-                <div className="flex items-center gap-4 p-4 rounded-xl"
-                  style={{ background: 'rgba(255,255,255,0.03)', border: `1px solid ${borderColor}` }}>
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ background: 'rgba(37, 99, 235, 0.1)' }}>
-                    <Phone className="w-5 h-5" style={{ color: primaryColor }} />
+                <div className="flex items-center gap-4 p-4 rounded-xl backdrop-blur-xl border transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.5)',
+                    borderColor: `rgba(0, 176, 255, 0.2)`,
+                    boxShadow: '0 4px 16px rgba(0, 176, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+                  }}>
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm border"
+                    style={{ 
+                      background: 'rgba(0, 176, 255, 0.15)',
+                      borderColor: 'rgba(0, 176, 255, 0.3)'
+                    }}>
+                    <Phone className="w-5 h-5" style={{ color: secondaryColor }} />
                   </div>
                   <div>
-                    <div className="font-semibold" style={{ color: textLight }}>516-917-0756</div>
-                    <div style={{ color: textMuted, fontSize: '0.875rem' }}>Direct line to our advisors</div>
+                    <div className="font-semibold" style={{ color: '#1e293b' }}>916-467-9264</div>
+                    <div style={{ color: '#64748b', fontSize: '0.875rem' }}>Mon-Fri: 6pm-9pm | Weekends: By appointment</div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 p-4 rounded-xl"
-                  style={{ background: 'rgba(255,255,255,0.03)', border: `1px solid ${borderColor}` }}>
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ background: 'rgba(37, 99, 235, 0.1)' }}>
-                    <Mail className="w-5 h-5" style={{ color: primaryColor }} />
+                <div className="flex items-center gap-4 p-4 rounded-xl backdrop-blur-xl border transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.5)',
+                    borderColor: `rgba(0, 176, 255, 0.2)`,
+                    boxShadow: '0 4px 16px rgba(0, 176, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+                  }}>
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm border"
+                    style={{ 
+                      background: 'rgba(0, 176, 255, 0.15)',
+                      borderColor: 'rgba(0, 176, 255, 0.3)'
+                    }}>
+                    <Mail className="w-5 h-5" style={{ color: secondaryColor }} />
                   </div>
                   <div>
-                    <div className="font-semibold" style={{ color: textLight }}>Info@futurewesecure.com</div>
-                    <div style={{ color: textMuted, fontSize: '0.875rem' }}>Response within 24 hours</div>
+                    <div className="font-semibold" style={{ color: '#1e293b' }}>info@bluelife.llc</div>
+                    <div style={{ color: '#64748b', fontSize: '0.875rem' }}>24-hour response</div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 p-4 rounded-xl"
-                  style={{ background: 'rgba(255,255,255,0.03)', border: `1px solid ${borderColor}` }}>
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ background: 'rgba(37, 99, 235, 0.1)' }}>
-                    <MapPin className="w-5 h-5" style={{ color: primaryColor }} />
+                <div className="flex items-center gap-4 p-4 rounded-xl backdrop-blur-xl border transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.5)',
+                    borderColor: `rgba(0, 176, 255, 0.2)`,
+                    boxShadow: '0 4px 16px rgba(0, 176, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+                  }}>
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm border"
+                    style={{ 
+                      background: 'rgba(0, 176, 255, 0.15)',
+                      borderColor: 'rgba(0, 176, 255, 0.3)'
+                    }}>
+                    <MapPin className="w-5 h-5" style={{ color: secondaryColor }} />
                   </div>
                   <div>
-                    <div className="font-semibold" style={{ color: textLight }}>Mount Airy, MD</div>
-                    <div style={{ color: textMuted, fontSize: '0.875rem' }}>Serving clients nationwide</div>
+                    <div className="font-semibold" style={{ color: '#1e293b' }}>Mount Airy, MD</div>
+                    <div style={{ color: '#64748b', fontSize: '0.875rem' }}>Serving clients nationwide</div>
+                  </div>
+                </div>
+
+                {/* Business Hours */}
+                <div className="flex items-center gap-4 p-4 rounded-xl backdrop-blur-xl border transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.5)',
+                    borderColor: `rgba(0, 176, 255, 0.2)`,
+                    boxShadow: '0 4px 16px rgba(0, 176, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+                  }}>
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm border"
+                    style={{ 
+                      background: 'rgba(0, 176, 255, 0.15)',
+                      borderColor: 'rgba(0, 176, 255, 0.3)'
+                    }}>
+                    <Calendar className="w-5 h-5" style={{ color: secondaryColor }} />
+                  </div>
+                  <div>
+                    <div className="font-semibold" style={{ color: '#1e293b' }}>Business Hours</div>
+                    <div style={{ color: '#64748b', fontSize: '0.875rem' }}>Mon-Fri: 6pm-9pm | Weekends: By appointment (1pm-4pm)</div>
                   </div>
                 </div>
               </div>
 
-              {/* Quick Action Buttons */}
-              <div className="space-y-3">
+              {/* Quick Action Buttons with Glassmorphism */}
+              <div className="space-y-4">
                 <a
-                  href="https://api.whatsapp.com/send?phone=15165818909&text=Hello!"
+                  href="https://api.whatsapp.com/send?phone=18606340142&text=Hello!"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-3 py-4 px-6 rounded-xl font-semibold transition-all duration-200 transform hover:-translate-y-1 hover:shadow-2xl"
+                  className="group w-full inline-flex items-center justify-center gap-3 py-4 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl backdrop-blur-sm"
                   style={{
-                    background: `linear-gradient(135deg, ${primaryColor}, ${accentColor})`,
-                    color: textLight
+                    background: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`,
+                    color: '#ffffff',
+                    boxShadow: '0 8px 24px rgba(0, 176, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
                   }}
                 >
                   <FaWhatsapp className="w-5 h-5" />
-                  Instant WhatsApp Consultation
+                  WhatsApp Consultation
+                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </a>
 
                 <button
                   onClick={() =>
                     window.Calendly?.initPopupWidget?.({
-                      url: "https://calendly.com/futurewesecure-info/30min",
+                      url: "https://calendly.com/gobluelifellc/30min",
                     })
                   }
-                  className="w-full inline-flex items-center justify-center gap-3 py-4 px-6 rounded-xl font-semibold border transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg"
+                  className="group w-full inline-flex items-center justify-center gap-3 py-4 px-6 rounded-xl font-semibold border transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg backdrop-blur-xl"
                   style={{
-                    borderColor: primaryColor,
-                    color: primaryColor,
-                    background: 'rgba(37, 99, 235, 0.05)'
+                    borderColor: secondaryColor,
+                    color: secondaryColor,
+                    background: 'rgba(255, 255, 255, 0.6)',
+                    boxShadow: '0 4px 16px rgba(0, 176, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
                   }}
                 >
                   <Calendar className="w-5 h-5" />
-                  Schedule Strategy Session
+                  Schedule Free Session
+                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
             </div>
 
-            {/* Trust Metrics */}
+            {/* Trust Metrics with Glassmorphism */}
             <div className="grid grid-cols-3 gap-4">
-              <div className="text-center p-4 rounded-2xl"
-                style={{ background: cardDark, border: `1px solid ${borderColor}` }}>
-                <Users className="w-8 h-8 mx-auto mb-2" style={{ color: primaryColor }} />
-                <div className="text-2xl font-bold" style={{ color: textLight }}>1.2K+</div>
-                <div style={{ color: textMuted, fontSize: '0.75rem' }}>Families</div>
-              </div>
-              <div className="text-center p-4 rounded-2xl"
-                style={{ background: cardDark, border: `1px solid ${borderColor}` }}>
-                <TrendingUp className="w-8 h-8 mx-auto mb-2" style={{ color: primaryColor }} />
-                <div className="text-2xl font-bold" style={{ color: textLight }}>15+</div>
-                <div style={{ color: textMuted, fontSize: '0.75rem' }}>Years Exp</div>
-              </div>
-              <div className="text-center p-4 rounded-2xl"
-                style={{ background: cardDark, border: `1px solid ${borderColor}` }}>
-                <CheckCircle className="w-8 h-8 mx-auto mb-2" style={{ color: primaryColor }} />
-                <div className="text-2xl font-bold" style={{ color: textLight }}>24h</div>
-                <div style={{ color: textMuted, fontSize: '0.75rem' }}>Response</div>
-              </div>
+              {[
+                { icon: Users, value: "1.2K+", label: "Families", color: secondaryColor },
+                { icon: TrendingUp, value: "15+", label: "Years Exp", color: secondaryColor },
+                { icon: CheckCircle, value: "24h", label: "Response", color: secondaryColor }
+              ].map((metric, index) => (
+                <div key={index} className="text-center p-4 rounded-2xl backdrop-blur-xl border transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.6)',
+                    borderColor: `rgba(0, 176, 255, 0.3)`,
+                    boxShadow: '0 4px 16px rgba(0, 176, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+                  }}>
+                  <metric.icon className="w-8 h-8 mx-auto mb-2" style={{ color: metric.color }} />
+                  <div className="text-2xl font-bold" style={{ color: '#1e293b' }}>{metric.value}</div>
+                  <div style={{ color: '#64748b', fontSize: '0.75rem' }}>{metric.label}</div>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Right Column - Contact Form */}
-          <div className="rounded-3xl p-8 relative overflow-hidden"
-            style={{ background: cardDark, border: `1px solid ${borderColor}` }}>
+          {/* Right Column - Contact Form with Enhanced Glassmorphism */}
+          <div className="rounded-3xl p-8 relative overflow-hidden backdrop-blur-2xl border transition-all duration-300 hover:shadow-2xl"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.4) 100%)',
+              borderColor: `rgba(0, 176, 255, 0.3)`,
+              boxShadow: '0 8px 32px rgba(0, 176, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.5)'
+            }}>
+
             {/* Form Header */}
             <div className="text-center mb-8">
-              <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-4"></div>
-              <h3 className="text-3xl font-bold mb-2" style={{ color: textLight }}>
-                Begin Your Journey
+              <div className="w-20 h-1 bg-gradient-to-r from-[#0050A0] to-[#00B0FF] rounded-full mx-auto mb-4"></div>
+              <h3 className="text-3xl font-bold mb-2" style={{ color: '#1e293b' }}>
+                Personalized Financial Plan
               </h3>
-              <p style={{ color: textMuted }}>
-                Complete the form below for a personalized financial strategy
+              <p style={{ color: '#64748b' }}>
+                Let us create a customized strategy for your financial future
               </p>
             </div>
 
@@ -276,7 +352,7 @@ const ContactSectionV3 = () => {
               />
 
               <div>
-                <label htmlFor="name" className="block text-sm font-semibold mb-3" style={{ color: textLight }}>
+                <label htmlFor="name" className="block text-sm font-semibold mb-3" style={{ color: '#1e293b' }}>
                   Full Name *
                 </label>
                 <input
@@ -284,16 +360,16 @@ const ContactSectionV3 = () => {
                   type="text"
                   name="name"
                   placeholder="Enter your full name"
-                  className={`w-full p-4 rounded-xl outline-none transition-all duration-200 ${errors.name
-                    ? "border-2 border-red-500 bg-red-500/10"
-                    : "border border-gray-600 bg-white/5 focus:border-blue-500 focus:bg-white/10"
+                  className={`w-full p-4 rounded-xl outline-none transition-all duration-200 backdrop-blur-xl border ${errors.name
+                    ? "border-2 border-red-500 bg-red-50"
+                    : "border border-[rgba(0, 176, 255, 0.3)] bg-white/60 focus:border-[#00B0FF] focus:bg-white/80 focus:shadow-lg"
                     }`}
-                  style={{ color: textLight }}
+                  style={{ color: '#1e293b' }}
                   value={formData.name}
                   onChange={handleChange}
                 />
                 {errors.name && (
-                  <p className="text-red-400 text-sm mt-2 flex items-center gap-2">
+                  <p className="text-red-500 text-sm mt-2 flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4" />
                     {errors.name}
                   </p>
@@ -301,7 +377,7 @@ const ContactSectionV3 = () => {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-semibold mb-3" style={{ color: textLight }}>
+                <label htmlFor="email" className="block text-sm font-semibold mb-3" style={{ color: '#1e293b' }}>
                   Email Address *
                 </label>
                 <input
@@ -309,16 +385,16 @@ const ContactSectionV3 = () => {
                   type="email"
                   name="email"
                   placeholder="your.email@example.com"
-                  className={`w-full p-4 rounded-xl outline-none transition-all duration-200 ${errors.email
-                    ? "border-2 border-red-500 bg-red-500/10"
-                    : "border border-gray-600 bg-white/5 focus:border-blue-500 focus:bg-white/10"
+                  className={`w-full p-4 rounded-xl outline-none transition-all duration-200 backdrop-blur-xl border ${errors.email
+                    ? "border-2 border-red-500 bg-red-50"
+                    : "border border-[rgba(0, 176, 255, 0.3)] bg-white/60 focus:border-[#00B0FF] focus:bg-white/80 focus:shadow-lg"
                     }`}
-                  style={{ color: textLight }}
+                  style={{ color: '#1e293b' }}
                   value={formData.email}
                   onChange={handleChange}
                 />
                 {errors.email && (
-                  <p className="text-red-400 text-sm mt-2 flex items-center gap-2">
+                  <p className="text-red-500 text-sm mt-2 flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4" />
                     {errors.email}
                   </p>
@@ -326,7 +402,7 @@ const ContactSectionV3 = () => {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-semibold mb-3" style={{ color: textLight }}>
+                <label htmlFor="message" className="block text-sm font-semibold mb-3" style={{ color: '#1e293b' }}>
                   Your Financial Goals *
                 </label>
                 <textarea
@@ -334,16 +410,16 @@ const ContactSectionV3 = () => {
                   name="message"
                   placeholder="Tell us about your financial objectives, current situation, and what you'd like to achieve..."
                   rows="5"
-                  className={`w-full p-4 rounded-xl outline-none resize-none transition-all duration-200 ${errors.message
-                    ? "border-2 border-red-500 bg-red-500/10"
-                    : "border border-gray-600 bg-white/5 focus:border-blue-500 focus:bg-white/10"
+                  className={`w-full p-4 rounded-xl outline-none resize-none transition-all duration-200 backdrop-blur-xl border ${errors.message
+                    ? "border-2 border-red-500 bg-red-50"
+                    : "border border-[rgba(0, 176, 255, 0.3)] bg-white/60 focus:border-[#00B0FF] focus:bg-white/80 focus:shadow-lg"
                     }`}
-                  style={{ color: textLight }}
+                  style={{ color: '#1e293b' }}
                   value={formData.message}
                   onChange={handleChange}
                 />
                 {errors.message && (
-                  <p className="text-red-400 text-sm mt-2 flex items-center gap-2">
+                  <p className="text-red-500 text-sm mt-2 flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4" />
                     {errors.message}
                   </p>
@@ -353,49 +429,63 @@ const ContactSectionV3 = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full py-4 rounded-xl font-semibold transition-all duration-200 transform hover:-translate-y-1 ${isSubmitting
-                  ? "bg-blue-400 cursor-not-allowed"
-                  : "bg-gradient-to-r from-blue-500 to-purple-500 hover:shadow-2xl"
+                className={`group w-full py-4 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1 backdrop-blur-sm ${isSubmitting
+                  ? "bg-[#00B0FF]/50 cursor-not-allowed"
+                  : "bg-gradient-to-r from-[#0050A0] to-[#00B0FF] hover:shadow-2xl"
                   }`}
-                style={{ color: textLight }}
+                style={{ 
+                  color: '#ffffff',
+                  boxShadow: isSubmitting ? 'none' : '0 8px 24px rgba(0, 176, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                }}
               >
                 {isSubmitting ? (
                   <div className="flex items-center justify-center gap-3">
                     <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
-                    Processing Your Request...
+                    Creating Your Financial Plan...
                   </div>
                 ) : (
-                  "Request Personalized Financial Plan"
+                  <div className="flex items-center justify-center gap-3">
+                    <MessageCircle className="w-5 h-5" />
+                    Request Personalized Strategy
+                    <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                  </div>
                 )}
               </button>
 
-              {/* Security Assurance */}
-              <div className="flex items-center gap-3 p-4 rounded-xl"
-                style={{ background: 'rgba(37, 99, 235, 0.05)', border: `1px solid rgba(37, 99, 235, 0.2)` }}>
-                <ShieldCheck className="w-5 h-5 flex-shrink-0" style={{ color: primaryColor }} />
-                <p className="text-sm" style={{ color: textMuted }}>
-                  <strong style={{ color: primaryColor }}>100% Confidential:</strong> Your information is encrypted and never shared with third parties.
+              {/* Security Assurance with Glassmorphism */}
+              <div className="flex items-center gap-3 p-4 rounded-xl backdrop-blur-xl border"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.5)',
+                  borderColor: `rgba(0, 176, 255, 0.3)`,
+                  boxShadow: '0 4px 16px rgba(0, 176, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+                }}>
+                <ShieldCheck className="w-5 h-5 flex-shrink-0" style={{ color: secondaryColor }} />
+                <p className="text-sm" style={{ color: '#64748b' }}>
+                  <strong style={{ color: secondaryColor }}>100% Confidential:</strong> Your information is encrypted and protected.
                 </p>
               </div>
             </form>
           </div>
         </div>
 
-        {/* Services Footer */}
+        {/* Footer with Glassmorphism */}
         <div className="mt-16 text-center">
-          {/* Copyright */}
-          <div className="mt-12 pt-8 border-t" style={{ borderColor: borderColor }}>
-            <div className="text-2xl font-bold mb-2" style={{ color: textLight }}>KALKI FINANCIAL SOLUTIONS</div>
-            <p className="mb-4" style={{ color: textMuted }}>Protection - Investment - Retirement Planning</p>
-            <div className="text-sm" style={{ color: textMuted }}>
-              © {new Date().getFullYear()} Future We Secure. All Rights Reserved.
+          <div className="mt-12 pt-8 border-t backdrop-blur-xl rounded-2xl p-6"
+            style={{ 
+              borderColor: 'rgba(0, 176, 255, 0.3)',
+              background: 'rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 4px 16px rgba(0, 176, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+            }}>
+            <div className="text-2xl font-bold mb-2" style={{ color: '#1e293b' }}>BlueLife LLC</div>
+            <p className="mb-4" style={{ color: '#64748b' }}>Financial Security • Investment Growth • Retirement Planning</p>
+            <div className="text-sm" style={{ color: '#64748b' }}>
+              © {new Date().getFullYear()} BlueLife Financial Partners. All Rights Reserved.
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );
 };
 
-export default ContactSectionV3;
+export default ContactSectionGlassmorphism;

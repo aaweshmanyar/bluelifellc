@@ -54,8 +54,8 @@ export default function Navbar() {
           </div>
           <div className="flex items-center">
             <Mail className="h-4 w-4 mr-2" />
-            <a href="mailto:info@vmfinancialsolutions.com" className="text-white hover:text-[#E5B80B]">
-              info@vmfinancialsolutions.com
+            <a href="mailto:info@bluelife.llc" className="text-white hover:text-[#E5B80B]">
+              info@bluelife.llc
             </a>
           </div>
         </div>
@@ -70,8 +70,8 @@ export default function Navbar() {
             </div>
             <div className="flex items-center">
               <Mail className="h-4 w-4 mr-2" />
-              <a href="mailto:info@vmfinancialsolutions.com" className="text-white hover:text-[#E5B80B]">
-                info@vmfinancialsolutions.com
+              <a href="mailto:info@bluelife.llc" className="text-white hover:text-[#E5B80B]">
+                info@bluelife.llc
               </a>
             </div>
           </div>
