@@ -235,7 +235,7 @@ const ContactSectionGlassmorphism = () => {
                     <MapPin className="w-5 h-5" style={{ color: secondaryColor }} />
                   </div>
                   <div>
-                    <div className="font-semibold" style={{ color: '#1e293b' }}>Mount Airy, MD</div>
+                    <div className="font-semibold" style={{ color: '#1e293b' }}>Cary, North Carolina (or NC)</div>
                     <div style={{ color: '#64748b', fontSize: '0.875rem' }}>Serving clients nationwide</div>
                   </div>
                 </div>
@@ -256,7 +256,7 @@ const ContactSectionGlassmorphism = () => {
                   </div>
                   <div>
                     <div className="font-semibold" style={{ color: '#1e293b' }}>Business Hours</div>
-                    <div style={{ color: '#64748b', fontSize: '0.875rem' }}>Mon-Fri: 6pm-9pm | Weekends: By appointment (1pm-4pm)</div>
+                    <div style={{ color: '#64748b', fontSize: '0.875rem' }}>0700-2300 Hrs EST</div>
                   </div>
                 </div>
               </div>
