@@ -71,14 +71,14 @@ export default function BlogModernVariant() {
         {/* Professional Header */}
         <div className="text-center mb-10">
           {/* Brand Indicator */}
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/80 backdrop-blur-sm border shadow-lg mb-8"
+          {/* <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/80 backdrop-blur-sm border shadow-lg mb-8"
             style={{ borderColor: brandColors.accentBorder }}>
             <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#0050A0] to-[#00B0FF]"></div>
             <span className="text-sm font-bold tracking-widest uppercase" style={{ color: "#0050A0" }}>
-              BlueLife Financial Solutions LLC Publications
+              Blogs 
             </span>
             <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#0050A0] to-[#00B0FF]"></div>
-          </div>
+          </div> */}
 
           <h1 className="text-3xl md:text-4xl lg:5xl font-black mb-2 tracking-tight" style={{ color: brandColors.textDark }}>
             Blog & <span style={{

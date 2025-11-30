@@ -151,7 +151,7 @@ export default function EventsGalleryModernVariant() {
             style={{ borderColor: brandColors.accentBorder }}>
             <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#0050A0] to-[#00B0FF]"></div>
             <span className="text-sm font-bold tracking-widest uppercase" style={{ color: "#0050A0" }}>
-              BlueLife Financial Solutions LLC Events
+              Gallery & Events
             </span>
             <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#0050A0] to-[#00B0FF]"></div>
           </div>

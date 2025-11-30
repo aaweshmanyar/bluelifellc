@@ -25,7 +25,7 @@ export default function AboutUsModernSplit() {
   ];
 
   return (
-    <section className="relative min-h-screen bg-white"> {/* Changed to white */}
+    <section className="mt-10 relative min-h-screen bg-white"> {/* Changed to white */}
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#0050A0]/5 to-transparent"></div>
@@ -38,7 +38,7 @@ export default function AboutUsModernSplit() {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 bg-[#0050A0]">
             <div className="w-2 h-2 bg-[#80D8FF] rounded-full animate-pulse"></div>
             <span className="text-sm font-semibold text-white uppercase tracking-wide">
-              BlueLife Financial Solutions LLC PARTNERS
+              About Us
             </span>
           </div>
 
