@@ -98,7 +98,7 @@ export default function BlueLifeModernCards() {
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 bg-gradient-to-r from-[#0050A0] to-[#00B0FF] rounded-full animate-pulse"></div>
                   <span className="font-bold text-gray-900 text-sm tracking-wider">
-                    BLUELIFE FINANCIAL
+                    BlueLife Financial Solutions LLC
                   </span>
                 </div>
               </div>

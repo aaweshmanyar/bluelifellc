@@ -14,7 +14,7 @@ const Homepage = () => {
       <Navbar />
       <HeroSection />
       <Animatedcard />
-      <Card />
+      {/* <Card /> */}
       <FAQSection />
       <ContactUs />
     </div>

@@ -38,7 +38,7 @@ export default function AboutUsModernSplit() {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 bg-[#0050A0]">
             <div className="w-2 h-2 bg-[#80D8FF] rounded-full animate-pulse"></div>
             <span className="text-sm font-semibold text-white uppercase tracking-wide">
-              BLUELIFE FINANCIAL PARTNERS
+              BlueLife Financial Solutions LLC PARTNERS
             </span>
           </div>
 

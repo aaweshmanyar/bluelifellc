@@ -268,7 +268,7 @@ export default function EventsDetailGlassVariant({ event = {}, previousEvents = 
             {/* Event Badge */}
             <div className="flex items-center gap-3 mb-4">
               <div className="px-3 py-1 rounded-full bg-gradient-to-r from-[#0050A0] to-[#00B0FF] text-white text-xs font-semibold">
-                <span>BLUE LIFE EXCLUSIVE</span>
+                <span>Event</span>
               </div>
               <div className="flex items-center gap-1 text-gray-600 text-xs">
                 <FiClock className="w-3 h-3" />

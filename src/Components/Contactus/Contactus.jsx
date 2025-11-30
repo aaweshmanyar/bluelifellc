@@ -256,7 +256,9 @@ const ContactSectionGlassmorphism = () => {
                   </div>
                   <div>
                     <div className="font-semibold" style={{ color: '#1e293b' }}>Business Hours</div>
-                    <div style={{ color: '#64748b', fontSize: '0.875rem' }}>0700-2300 Hrs EST</div>
+                    <div style={{ color: '#64748b', fontSize: '0.875rem' }}>0700-2300 Hrs EST
+                      
+                    </div>
                   </div>
                 </div>
               </div>
