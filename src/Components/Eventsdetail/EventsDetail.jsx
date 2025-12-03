@@ -1,4 +1,4 @@
-/** UPDATED: Fully responsive + Previous Events sidebar */
+/** UPDATED: API-powered Events Detail + Previous Events (auto-picks latest event) */
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   FiCalendar,
@@ -10,74 +10,19 @@ import {
   FiChevronLeft,
   FiChevronRight,
   FiClock,
-  FiMapPin
+  FiMapPin,
 } from "react-icons/fi";
 
-export default function EventsDetailGlassVariant({ event = {}, previousEvents = [] }) {
-  const demoCurrent = useMemo(
-    () => ({
-      title: "Retirement Planning Masterclass: Secure Your Financial Future",
-      date: "2025-11-18T17:30:00+05:30",
-      description:
-        "A comprehensive session covering retirement strategies, tax optimization, and wealth preservation.",
-      host: "Michael Reynolds - BlueLife Financial Solutions LLC Wealth Management",
-      meetingLink: "https://calendly.com/gobluelifellc/30min",
-      thumbnailUrl:
-        "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1400&auto=format&fit=crop",
-      gallery: [
-        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=1400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1400&auto=format&fit=crop"
-      ],
-      location: "BlueLife Financial Solutions LLC Executive Center & Virtual",
-      duration: "90 minutes",
-      attendees: "45 confirmed",
-      expertiseLevel: "Advanced",
-      category: "Wealth Management"
-    }),
-    []
-  );
+const API_BASE = "https://bluelife.llc/api";
 
-  const demoPrevious = useMemo(
-    () => [
-      {
-        id: 101,
-        title: "Investment Strategies for Market Volatility",
-        date: "2025-10-22T18:00:00+05:30",
-        host: "BlueLife Financial Solutions LLC Investment Team",
-        thumbnailUrl:
-          "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=1200&auto=format&fit=crop",
-        recordingLink: "https://example.com/recording/investment-strategies"
-      },
-      {
-        id: 102,
-        title: "Estate Planning & Wealth Transfer",
-        date: "2025-09-10T17:00:00+05:30",
-        host: "BlueLife Financial Solutions LLC Legal Advisors",
-        thumbnailUrl:
-          "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
-        recordingLink: "https://example.com/recording/estate-planning"
-      }
-    ],
-    []
-  );
-
-  const model = { ...demoCurrent, ...event };
-  const prevList =
-    Array.isArray(previousEvents) && previousEvents.length
-      ? previousEvents
-      : demoPrevious;
-
-  const displayDate = useMemo(() => formatDate(model.date), [model.date]);
-
-  const brand = {
-    primary: "#00B0FF",
-    gradient: "linear-gradient(135deg, #0050A0 0%, #00B0FF 100%)",
-    border: "rgba(0,176,255,0.15)",
-    lightBg: "rgba(0,176,255,0.05)",
-    textDark: "#003366",
-    textLight: "#666"
-  };
+export default function EventsDetailGlassVariant({
+  event = {},        // optional: can contain { id }, otherwise we'll auto-pick latest active
+  previousEvents = [], // currently unused, we pull from API
+}) {
+  const [model, setModel] = useState(null);
+  const [prevList, setPrevList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState("");
 
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(0);
@@ -86,8 +31,171 @@ export default function EventsDetailGlassVariant({ event = {}, previousEvents = 
   const lightboxRef = useRef(null);
   const heroRef = useRef(null);
 
-  const images = model.gallery || [];
+  const eventId = event?.id || null; // may be null, we handle that
+
+  const brand = {
+    primary: "#00B0FF",
+    gradient: "linear-gradient(135deg, #0050A0 0%, #00B0FF 100%)",
+    border: "rgba(0,176,255,0.15)",
+    lightBg: "rgba(0,176,255,0.05)",
+    textDark: "#003366",
+    textLight: "#666",
+  };
+
+  // -----------------------------
+  // Load current event + previous events from API
+  // -----------------------------
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadData = async () => {
+      setLoading(true);
+      setErr("");
+
+      try {
+        let effectiveId = eventId;
+
+        // 1) If no id passed → fetch active events and pick the latest one
+        if (!effectiveId) {
+          const listRes = await fetch(`${API_BASE}/events`);
+          if (!listRes.ok) {
+            throw new Error(
+              `Failed to load active events list. Status: ${listRes.status}`
+            );
+          }
+
+          const listJson = await listRes.json();
+          const rows = Array.isArray(listJson.data) ? listJson.data : [];
+
+          if (!rows.length) {
+            if (!cancelled) {
+              setErr("No active events found.");
+              setModel(null);
+            }
+            return;
+          }
+
+          // /api/events is ordered by created_at DESC, so first = latest
+          effectiveId = rows[0].id;
+        }
+
+        // 2) Fetch details of the chosen event + previous events in parallel
+        const [eventRes, prevRes] = await Promise.all([
+          fetch(`${API_BASE}/events/${effectiveId}`),
+          fetch(`${API_BASE}/events/previous`),
+        ]);
+
+        if (!eventRes.ok) {
+          throw new Error(
+            `Failed to load event ${effectiveId}. Status: ${eventRes.status}`
+          );
+        }
+
+        const eventJson = await eventRes.json();
+        const { event: ev, images = [] } = eventJson;
+
+        // Build gallery URLs
+        const galleryUrls = Array.isArray(images)
+          ? images.map((img) => `${API_BASE}/events/image/${img.id}/blob`)
+          : [];
+
+        // Determine hero/thumbnail image
+        let thumbnailUrl = null;
+        if (ev.cover_image_id) {
+          thumbnailUrl = `${API_BASE}/events/image/${ev.cover_image_id}/blob`;
+        } else if (galleryUrls.length > 0) {
+          thumbnailUrl = galleryUrls[0];
+        }
+
+        const mappedEvent = {
+          id: ev.id,
+          title: ev.title,
+          date: ev.event_date,
+          description: ev.description || "",
+          host: ev.hosted_by || "",
+          meetingLink: ev.link || "",
+          location: ev.address || "",
+          thumbnailUrl,
+          gallery: galleryUrls,
+          duration: "",       // not in DB – optional
+          attendees: "",      // not in DB – optional
+          expertiseLevel: "", // not in DB – optional
+          category: "",       // not in DB – optional
+          status: ev.status,
+        };
+
+        // 3) Previous events list
+        let mappedPrev = [];
+        if (prevRes.ok) {
+          const prevJson = await prevRes.json();
+          const prevRows = Array.isArray(prevJson.data) ? prevJson.data : [];
+
+          mappedPrev = await Promise.all(
+            prevRows.map(async (p) => {
+              let thumb = null;
+
+              if (p.cover_image_id) {
+                thumb = `${API_BASE}/events/image/${p.cover_image_id}/blob`;
+              } else if (p.images_count > 0) {
+                // Fallback: try to grab first image of this event
+                try {
+                  const detailRes = await fetch(`${API_BASE}/events/${p.id}`);
+                  if (detailRes.ok) {
+                    const dj = await detailRes.json();
+                    const imgs = Array.isArray(dj.images) ? dj.images : [];
+                    if (imgs.length > 0) {
+                      thumb = `${API_BASE}/events/image/${imgs[0].id}/blob`;
+                    }
+                  }
+                } catch (innerErr) {
+                  console.error(
+                    "Error fetching images for previous event",
+                    p.id,
+                    innerErr
+                  );
+                }
+              }
+
+              return {
+                id: p.id,
+                title: p.title,
+                date: p.event_date,
+                host: p.hosted_by,
+                thumbnailUrl: thumb,
+                recordingLink: p.link || "", // using link as recording URL
+              };
+            })
+          );
+        }
+
+        if (!cancelled) {
+          setModel(mappedEvent);
+          setPrevList(mappedPrev);
+        }
+      } catch (e) {
+        console.error("Error loading event detail:", e);
+        if (!cancelled) {
+          setErr(
+            `Couldn't load event details. Check if API at "${API_BASE}" is running and /events routes are configured.`
+          );
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    loadData();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [eventId]);
+
+  // Derived values from model
+  const current = model || {};
+  const images = current.gallery || [];
   const hasGallery = images.length > 0;
+  const displayDate = useMemo(() => formatDate(current.date), [current.date]);
 
   // Dynamic navbar offset
   useEffect(() => {
@@ -136,6 +244,37 @@ export default function EventsDetailGlassVariant({ event = {}, previousEvents = 
   const next = () => setIdx((p) => (p + 1) % images.length);
   const prev = () => setIdx((p) => (p - 1 + images.length) % images.length);
 
+  // Loading / error states over the main layout
+  if (loading && !model && !err) {
+    return (
+      <section
+        className="w-full bg-white min-h-screen flex items-center justify-center"
+        style={{ paddingTop: topOffset }}
+      >
+        <div className="text-gray-500">Loading event…</div>
+      </section>
+    );
+  }
+
+  if (err && !model) {
+    return (
+      <section
+        className="w-full bg-white min-h-screen flex items-center justify-center px-4"
+        style={{ paddingTop: topOffset }}
+      >
+        <div
+          className="max-w-lg bg-white border rounded-xl p-6 shadow"
+          style={{ borderColor: brand.border }}
+        >
+          <h2 className="font-bold mb-2" style={{ color: brand.textDark }}>
+            Something went wrong
+          </h2>
+          <p className="text-sm text-gray-600 whitespace-pre-line">{err}</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       className="w-full bg-white min-h-screen"
@@ -146,14 +285,20 @@ export default function EventsDetailGlassVariant({ event = {}, previousEvents = 
         ref={heroRef}
         className="relative w-full mx-auto rounded-2xl overflow-hidden mb-8"
         style={{
-          height: "min(55vh, 480px)"
+          height: "min(55vh, 480px)",
         }}
       >
-        <img
-          src={model.thumbnailUrl}
-          className="w-full h-full object-cover"
-          alt={model.title || "Event banner"}
-        />
+        {current.thumbnailUrl ? (
+          <img
+            src={current.thumbnailUrl}
+            className="w-full h-full object-cover"
+            alt={current.title || "Event banner"}
+          />
+        ) : (
+          <div className="w-full h-full bg-slate-100 flex items-center justify-center">
+            <FiCalendar className="w-10 h-10 text-slate-400" />
+          </div>
+        )}
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
@@ -167,7 +312,7 @@ export default function EventsDetailGlassVariant({ event = {}, previousEvents = 
               className="text-xl md:text-2xl font-bold"
               style={{ color: brand.textDark }}
             >
-              {model.title}
+              {current.title}
             </h1>
 
             <div className="text-sm text-gray-600 mt-3 space-y-1">
@@ -175,15 +320,20 @@ export default function EventsDetailGlassVariant({ event = {}, previousEvents = 
                 <FiCalendar className="text-blue-500" /> {displayDate}
               </div>
               <div className="flex items-center gap-2">
-                <FiMapPin className="text-blue-500" /> {model.location}
+                <FiMapPin className="text-blue-500" />{" "}
+                {current.location || "TBA"}
               </div>
             </div>
 
             <div className="mt-4 flex gap-3">
-              {model.meetingLink && (
+              {current.meetingLink && (
                 <button
                   onClick={() =>
-                    window.open(model.meetingLink, "_blank", "noopener,noreferrer")
+                    window.open(
+                      current.meetingLink,
+                      "_blank",
+                      "noopener,noreferrer"
+                    )
                   }
                   className="flex items-center gap-2 px-4 py-2 font-bold text-white rounded-xl text-sm"
                   style={{ background: brand.gradient }}
@@ -223,7 +373,7 @@ export default function EventsDetailGlassVariant({ event = {}, previousEvents = 
               Event Overview
             </h2>
             <p className="text-gray-700 leading-relaxed">
-              {model.description}
+              {current.description || "Details coming soon."}
             </p>
           </div>
 
@@ -276,9 +426,21 @@ export default function EventsDetailGlassVariant({ event = {}, previousEvents = 
 
             <div className="space-y-3 text-sm">
               <Detail icon={<FiCalendar />} label="Date" value={displayDate} />
-              <Detail icon={<FiMapPin />} label="Location" value={model.location} />
-              <Detail icon={<FiClock />} label="Duration" value={model.duration} />
-              <Detail icon={<FiUser />} label="Host" value={model.host} />
+              <Detail
+                icon={<FiMapPin />}
+                label="Location"
+                value={current.location || "TBA"}
+              />
+              <Detail
+                icon={<FiClock />}
+                label="Duration"
+                value={current.duration || "—"}
+              />
+              <Detail
+                icon={<FiUser />}
+                label="Host"
+                value={current.host || "BlueLife Financial Solutions LLC"}
+              />
             </div>
           </div>
 
@@ -301,16 +463,29 @@ export default function EventsDetailGlassVariant({ event = {}, previousEvents = 
                     key={p.id || p.title}
                     onClick={() =>
                       p.recordingLink &&
-                      window.open(p.recordingLink, "_blank", "noopener,noreferrer")
+                      window.open(
+                        p.recordingLink,
+                        "_blank",
+                        "noopener,noreferrer"
+                      )
                     }
                     className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-blue-50 transition text-left"
                   >
-                    <img
-                      src={p.thumbnailUrl}
-                      alt={p.title}
-                      className="w-12 h-12 rounded-lg object-cover border"
-                      style={{ borderColor: brand.border }}
-                    />
+                    {p.thumbnailUrl ? (
+                      <img
+                        src={p.thumbnailUrl}
+                        alt={p.title}
+                        className="w-12 h-12 rounded-lg object-cover border"
+                        style={{ borderColor: brand.border }}
+                      />
+                    ) : (
+                      <div
+                        className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center border"
+                        style={{ borderColor: brand.border }}
+                      >
+                        <FiCalendar className="w-4 h-4 text-slate-400" />
+                      </div>
+                    )}
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-semibold truncate">
                         {p.title}
@@ -319,7 +494,9 @@ export default function EventsDetailGlassVariant({ event = {}, previousEvents = 
                         {formatDate(p.date)}
                       </div>
                     </div>
-                    <FiExternalLink className="text-gray-400 shrink-0" />
+                    {p.recordingLink && (
+                      <FiExternalLink className="text-gray-400 shrink-0" />
+                    )}
                   </button>
                 ))}
               </div>
@@ -398,7 +575,7 @@ function formatDate(input) {
       day: "numeric",
       year: "numeric",
       hour: "2-digit",
-      minute: "2-digit"
+      minute: "2-digit",
     });
   } catch {
     return String(input || "Date TBA");
