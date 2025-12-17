@@ -15,11 +15,16 @@ import {
 } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 
 const ContactSectionGlassmorphism = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+      phone: "",
+
     message: "",
     company: "",
   });
@@ -37,10 +42,8 @@ const ContactSectionGlassmorphism = () => {
   const borderColor = "#1e3a5f";
 
   // 👇 two receiver emails
-  const RECEIVER_EMAILS = [
-    "info@bluelife.llc",           // website email
-    "aaweshmanyar0425@gmail.com",  // your email
-  ];
+const RECEIVER_EMAIL = "info@bluelife.llc";
+
 
   const validateForm = () => {
     const newErrors = {};
@@ -52,6 +55,11 @@ const ContactSectionGlassmorphism = () => {
     if (!emailOk) {
       newErrors.email = "Please enter a valid email address.";
     }
+
+    if (!formData.phone || formData.phone.replace(/\D/g, "").length < 10) {
+  newErrors.phone = "Please enter a valid phone number.";
+}
+
     if (!formData.message || formData.message.trim().length < 12) {
       newErrors.message = "Tell us a bit more (at least 12 characters).";
     }
@@ -76,6 +84,8 @@ const ContactSectionGlassmorphism = () => {
     const payload = {
       name: formData.name,
       email: formData.email,
+        phone: formData.phone,   // 👈 added
+
       msg: formData.message,
       toEmail: RECEIVER_EMAILS.join(","), // send both recipients to backend
     };
@@ -569,6 +579,45 @@ const ContactSectionGlassmorphism = () => {
                   </p>
                 )}
               </div>
+
+              {/* PHONE */}
+<div>
+  <label
+    htmlFor="phone"
+    className="block text-sm font-semibold text-slate-800 mb-1.5"
+  >
+    Phone Number
+  </label>
+
+  <PhoneInput
+    country={"in"}                 // default INDIA
+    onlyCountries={["in", "us", "ca"]}
+    preferredCountries={["in", "us", "ca"]}
+    value={formData.phone}
+    onChange={(phone) =>
+      setFormData((s) => ({ ...s, phone }))
+    }
+    inputProps={{
+      name: "phone",
+      required: true,
+    }}
+    inputStyle={{
+      width: "100%",
+      height: "48px",
+      borderRadius: "0.5rem",
+      borderColor: errors.phone ? "#fca5a5" : "#cbd5e1",
+    }}
+    buttonStyle={{
+      borderRadius: "0.5rem 0 0 0.5rem",
+    }}
+    containerClass="react-tel-input"
+  />
+
+  {errors.phone && (
+    <p className="text-red-600 text-sm mt-1">{errors.phone}</p>
+  )}
+</div>
+
 
               <div>
                 <label

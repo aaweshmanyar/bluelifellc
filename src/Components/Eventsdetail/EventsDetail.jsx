@@ -111,6 +111,8 @@ export default function EventsDetailGlassVariant({
           id: ev.id,
           title: ev.title,
           date: ev.event_date,
+            event_timezone: ev.event_timezone || "", // ✅ ADD THIS
+
           description: ev.description || "",
           host: ev.hosted_by || "",
           meetingLink: ev.link || "",
@@ -196,6 +198,8 @@ export default function EventsDetailGlassVariant({
   const images = current.gallery || [];
   const hasGallery = images.length > 0;
   const displayDate = useMemo(() => formatDate(current.date), [current.date]);
+
+  
 
   // Dynamic navbar offset
   useEffect(() => {
@@ -318,11 +322,11 @@ export default function EventsDetailGlassVariant({
             <div className="text-sm text-gray-600 mt-3 space-y-1">
               <div className="flex items-center gap-2">
                 <FiCalendar className="text-blue-500" /> {displayDate}
+                 <span className="text-black/70">
+     {current.event_timezone}
+  </span>
               </div>
-              <div className="flex items-center gap-2">
-                <FiMapPin className="text-blue-500" />{" "}
-                {current.location || "TBA"}
-              </div>
+             
             </div>
 
             <div className="mt-4 flex gap-3">
@@ -425,17 +429,22 @@ export default function EventsDetailGlassVariant({
             </h4>
 
             <div className="space-y-3 text-sm">
-              <Detail icon={<FiCalendar />} label="Date" value={displayDate} />
               <Detail
-                icon={<FiMapPin />}
-                label="Location"
-                value={current.location || "TBA"}
-              />
-              <Detail
+  icon={<FiCalendar />}
+  label="Date"
+  value={[
+    displayDate,
+    current?.event_timezone
+  ].filter(Boolean).join(" ")}
+/>
+
+
+              
+              {/* <Detail
                 icon={<FiClock />}
                 label="Duration"
                 value={current.duration || "—"}
-              />
+              /> */}
               <Detail
                 icon={<FiUser />}
                 label="Host"
