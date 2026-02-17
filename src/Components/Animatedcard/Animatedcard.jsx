@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   ShieldCheck,
   Briefcase,
@@ -118,15 +119,23 @@ export default function BlueLifeModernCards() {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10">
-                <button className="group bg-gradient-to-r from-[#0050A0] to-[#00B0FF] text-white font-bold px-10 py-4 rounded-2xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 shadow-lg">
+                <a
+                  href="https://calendly.com/gobluelifellc/30min"
+
+                  rel="noopener noreferrer"
+                  className="group bg-gradient-to-r from-[#0050A0] to-[#00B0FF] text-white font-bold px-10 py-4 rounded-2xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 shadow-lg text-center"
+                >
                   <span className="flex items-center gap-3">
                     Start Your Journey
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
-                </button>
-                <button className="group border-2 border-gray-300 text-gray-700 font-bold px-10 py-4 rounded-2xl hover:border-[#0050A0] hover:text-[#0050A0] transition-all duration-300">
+                </a>
+                <Link
+                  to="/service"
+                  className="group border-2 border-gray-300 text-gray-700 font-bold px-10 py-4 rounded-2xl hover:border-[#0050A0] hover:text-[#0050A0] transition-all duration-300 text-center"
+                >
                   View Our Services
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -174,18 +183,23 @@ export default function BlueLifeModernCards() {
                 <p className="text-md text-[#E0F2FF] mb-5 max-w-2xl mx-auto">
                   Get a personalized evaluation of your financial strategy — and unlock insights that bring long-term clarity.
                 </p>
-                <button className="bg-white text-[#0050A0] font-bold px-12 py-4 rounded-2xl hover:bg-[#E0F2FF] hover:scale-105 transition-all duration-300 shadow-2xl">
+                <a
+                  href="https://calendly.com/gobluelifellc/30min"
+
+                  rel="noopener noreferrer"
+                  className="inline-block bg-white text-[#0050A0] font-bold px-12 py-4 rounded-2xl hover:bg-[#E0F2FF] hover:scale-105 transition-all duration-300 shadow-2xl"
+                >
                   <span className="flex items-center gap-3">
                     <Calendar className="w-6 h-6" />
                     Book Free Strategy Session
                     <ArrowRight className="w-5 h-5" />
                   </span>
-                </button>
+                </a>
               </div>
             </div>
 
             {/* Process Section */}
-            
+
 
 
           </div>

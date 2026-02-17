@@ -86,20 +86,20 @@ const HeroSection2 = ({ topOffset = 88 }) => {
         </div>
 
         {/* Floating Glass Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full backdrop-blur-xl animate-pulse" 
-          style={{ 
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full backdrop-blur-xl animate-pulse"
+          style={{
             background: 'rgba(0, 176, 255, 0.08)',
             border: '1px solid rgba(0, 176, 255, 0.15)',
             boxShadow: '0 8px 32px rgba(0, 176, 255, 0.1)'
           }} />
-        <div className="absolute bottom-1/3 right-1/3 w-24 h-24 rounded-full backdrop-blur-xl animate-pulse delay-300" 
-          style={{ 
+        <div className="absolute bottom-1/3 right-1/3 w-24 h-24 rounded-full backdrop-blur-xl animate-pulse delay-300"
+          style={{
             background: 'rgba(0, 80, 160, 0.08)',
             border: '1px solid rgba(0, 80, 160, 0.15)',
             boxShadow: '0 8px 32px rgba(0, 80, 160, 0.1)'
           }} />
-        <div className="absolute top-1/2 right-1/4 w-20 h-20 rounded-full backdrop-blur-xl animate-pulse delay-700" 
-          style={{ 
+        <div className="absolute top-1/2 right-1/4 w-20 h-20 rounded-full backdrop-blur-xl animate-pulse delay-700"
+          style={{
             background: 'rgba(0, 176, 255, 0.06)',
             border: '1px solid rgba(0, 176, 255, 0.12)',
             boxShadow: '0 8px 32px rgba(0, 176, 255, 0.08)'
@@ -118,19 +118,36 @@ const HeroSection2 = ({ topOffset = 88 }) => {
                   border: '1px solid rgba(255, 255, 255, 0.5)',
                   boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
                 }} />
-              
+
               <div className="relative z-10">
                 {/* Badge with Glassmorphism */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 backdrop-blur-xl border transition-all duration-300 hover:scale-105"
-                  style={{
-                    borderColor: 'rgba(0, 176, 255, 0.3)',
-                    background: 'rgba(255, 255, 255, 0.6)',
-                    boxShadow: '0 4px 16px rgba(0, 176, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
-                  }}>
-                  <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: primaryBlue }} />
-                  <span className="text-sm font-semibold uppercase tracking-wide" style={{ color: primaryBlue }}>
-                    Trusted Financial Partners
-                  </span>
+                <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-xl border transition-all duration-300 hover:scale-105"
+                    style={{
+                      borderColor: 'rgba(0, 176, 255, 0.3)',
+                      background: 'rgba(255, 255, 255, 0.6)',
+                      boxShadow: '0 4px 16px rgba(0, 176, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+                    }}>
+                    <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: primaryBlue }} />
+                    <span className="text-sm font-semibold uppercase tracking-wide" style={{ color: primaryBlue }}>
+                      Trusted Financial Partners
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={openCalendly}
+                    className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:scale-105 hover:shadow-xl border backdrop-blur-xl"
+                    style={{
+                      background: `linear-gradient(135deg, ${primaryBlue}10 0%, ${primaryBlue}20 100%)`,
+                      borderColor: 'rgba(0, 176, 255, 0.4)',
+                      color: darkBlue,
+                      boxShadow: '0 4px 15px rgba(0, 176, 255, 0.1)'
+                    }}
+                  >
+                    <Calendar className="w-3.5 h-3.5" />
+                    Schedule an Appointment
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                  </button>
                 </div>
 
                 {/* Main Heading */}
@@ -211,7 +228,7 @@ const HeroSection2 = ({ topOffset = 88 }) => {
 
                 {/* Contact Info with Glassmorphism */}
                 <div className="flex flex-wrap gap-6 mt-8 pt-8 border-t backdrop-blur-sm rounded-b-2xl p-4 -mx-4 -mb-4"
-                  style={{ 
+                  style={{
                     borderColor: 'rgba(0, 176, 255, 0.2)',
                     background: 'rgba(255, 255, 255, 0.4)',
                     boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6)'
@@ -257,7 +274,7 @@ const HeroSection2 = ({ topOffset = 88 }) => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-[#0050A0] via-transparent to-[#00B0FF] opacity-15" />
                 {/* Glass overlay */}
-                <div className="absolute inset-0 backdrop-blur-[2px] opacity-30" 
+                <div className="absolute inset-0 backdrop-blur-[2px] opacity-30"
                   style={{ background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)' }} />
               </div>
 

@@ -111,7 +111,7 @@ export default function EventsDetailGlassVariant({
           id: ev.id,
           title: ev.title,
           date: ev.event_date,
-            event_timezone: ev.event_timezone || "", // ✅ ADD THIS
+          event_timezone: ev.event_timezone || "", // ✅ ADD THIS
 
           description: ev.description || "",
           host: ev.hosted_by || "",
@@ -199,7 +199,7 @@ export default function EventsDetailGlassVariant({
   const hasGallery = images.length > 0;
   const displayDate = useMemo(() => formatDate(current.date), [current.date]);
 
-  
+
 
   // Dynamic navbar offset
   useEffect(() => {
@@ -220,7 +220,7 @@ export default function EventsDetailGlassVariant({
       const pct = Math.min(
         Math.max(
           (window.innerHeight - rect.top) /
-            (window.innerHeight + rect.height),
+          (window.innerHeight + rect.height),
           0
         ),
         1
@@ -322,11 +322,11 @@ export default function EventsDetailGlassVariant({
             <div className="text-sm text-gray-600 mt-3 space-y-1">
               <div className="flex items-center gap-2">
                 <FiCalendar className="text-blue-500" /> {displayDate}
-                 <span className="text-black/70">
-     {current.event_timezone}
-  </span>
+                <span className="text-black/70">
+                  {current.event_timezone}
+                </span>
               </div>
-             
+
             </div>
 
             <div className="mt-4 flex gap-3">
@@ -342,7 +342,7 @@ export default function EventsDetailGlassVariant({
                   className="flex items-center gap-2 px-4 py-2 font-bold text-white rounded-xl text-sm"
                   style={{ background: brand.gradient }}
                 >
-                  <FiVideo /> Join Live
+                  <FiVideo /> Register
                 </button>
               )}
 
@@ -430,16 +430,16 @@ export default function EventsDetailGlassVariant({
 
             <div className="space-y-3 text-sm">
               <Detail
-  icon={<FiCalendar />}
-  label="Date"
-  value={[
-    displayDate,
-    current?.event_timezone
-  ].filter(Boolean).join(" ")}
-/>
+                icon={<FiCalendar />}
+                label="Date"
+                value={[
+                  displayDate,
+                  current?.event_timezone
+                ].filter(Boolean).join(" ")}
+              />
 
 
-              
+
               {/* <Detail
                 icon={<FiClock />}
                 label="Duration"
