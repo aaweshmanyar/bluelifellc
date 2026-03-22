@@ -12,6 +12,8 @@ import ScrollToTop from './Components/ScrollToTop';
 import BlogDetailPage from './Components/Blog/BlogDetailPage';
 import Eventsdetail from './Pages/Eventsdetail';
 import Eventpop from './Components/EventPop/EventPop'
+import PrivacyPolicy from './Pages/PrivacyPolicy';
+import Terms from './Pages/Terms';
 
 const App = () => {
   return (
@@ -28,6 +30,8 @@ const App = () => {
         <Route path="/blog" element={<Blogpage />} />
         <Route path="/blog/:id" element={<BlogDetailPage />} />
         <Route path="/events" element={<Eventsdetail />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<Terms />} />
        
       </Routes>
     </Router>
